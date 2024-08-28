@@ -3,6 +3,7 @@ using E_commerce.Services;
 using E_commerce.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,10 +24,23 @@ builder.Services
     });
 
 
+// POLICIES
+builder.Services.AddAuthorization(options =>
+{
 
+    // Admin Policy
+    options.AddPolicy("AdminPolicy", policy =>
+    {
+        policy.RequireClaim(ClaimTypes.Role, "admin"); // [Authorize(Policy = "AdminPolicy")]
+    });
 
+    //Farmacista Policy
+    options.AddPolicy("UserPolicy", policy =>
+    {
+        policy.RequireClaim(ClaimTypes.Role, "user"); // [Authorize(Policy = "FarmacPolicy")]
+    });
 
-
+});
 
 
 //SERVICES
