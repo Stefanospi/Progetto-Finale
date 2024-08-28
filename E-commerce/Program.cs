@@ -1,4 +1,7 @@
 using E_commerce.Context;
+using E_commerce.Services;
+using E_commerce.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +9,29 @@ var builder = WebApplication.CreateBuilder(args);
 //CONNECTION - DATACONTEXT
 var conn = builder.Configuration.GetConnectionString("SqlServer");
 builder.Services.AddDbContext<DataContext>(opt => opt.UseSqlServer(conn));
+
+//AUTH
+builder.Services
+    .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Auth/Login";
+        options.AccessDeniedPath = "/Home/AccessDenied";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+        options.SlidingExpiration = true;
+        options.Cookie.SameSite = SameSiteMode.Strict;
+    });
+
+
+
+
+
+
+
+
+//SERVICES
+builder.Services
+    .AddScoped<IAuthService, AuthService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

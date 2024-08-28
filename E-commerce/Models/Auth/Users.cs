@@ -25,6 +25,9 @@ namespace E_commerce.Models.Auth
         [StringLength(50)]
         [EmailAddress]
         public string Email { get; set; }
+        [Required]
+        [StringLength(50)]
+        public string Username { get; set; }
 
         [DataType(DataType.Password)]
         [StringLength(255, ErrorMessage = "La password può avere max 255 caratteri!")]
