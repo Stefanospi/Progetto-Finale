@@ -1,4 +1,6 @@
 
 .vs/
+bin/
+obj/
 /E-commerce/appsettings.json
 /E-commerce/appsettings.Development.json
