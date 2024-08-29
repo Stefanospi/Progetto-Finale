@@ -46,6 +46,31 @@ namespace E_commerce.Services
             }
             return existingUser;
         }
+        public async Task<Users> GetUserByIdAsync(int userId)
+        {
+            return await _ctx.Users.FindAsync(userId);
+        }
+        public async Task UpdateUserAsync(Users user)
+        {
+            var existingUser = await _ctx.Users.FindAsync(user.IdUser);
+            if (existingUser == null)
+            {
+                throw new Exception("User not found.");
+            }
+
+            // Aggiorna le proprietà
+            existingUser.FirstName = user.FirstName;
+            existingUser.LastName = user.LastName;
+            existingUser.Email = user.Email;
+            existingUser.PasswordHash = user.PasswordHash; // Considera di gestire la modifica della password in modo sicuro
+            existingUser.BirthDate = user.BirthDate;
+            existingUser.Gender = user.Gender;
+            existingUser.PhoneNumber = user.PhoneNumber;
+
+            // Salva le modifiche nel database
+            _ctx.Users.Update(existingUser);
+            await _ctx.SaveChangesAsync();
+        }
 
     }
 }

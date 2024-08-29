@@ -27,10 +27,14 @@
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
+
                             
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Logout">Logout</a>
                                 </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="EditProfile">Edit</a>
+                            </li>
                         }
                         @if (!User.Identity.IsAuthenticated)
                         {
@@ -40,6 +44,13 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Register">Register</a>
                             </li>
+                        }
+                        @if (User.IsInRole("admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Create">Inserisci un prodotto</a>
+                            </li>
+                            
                         }
                     </ul>
                 </div>

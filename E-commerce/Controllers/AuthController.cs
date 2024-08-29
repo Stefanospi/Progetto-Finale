@@ -84,5 +84,42 @@ namespace E_commerce.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login");
         }
+
+        // Visualizza il modulo per modificare il profilo
+        public async Task<IActionResult> EditProfile()
+        {
+            // Recupera l'utente autenticato
+            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var user = await _authSvc.GetUserByIdAsync(userId);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
+
+        // Gestisce l'aggiornamento del profilo
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditProfile(Users user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(user);
+            }
+
+            try
+            {
+                await _authSvc.UpdateUserAsync(user);
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("UpdateError", ex.Message);
+                return View(user);
+            }
+        }
     }
 }

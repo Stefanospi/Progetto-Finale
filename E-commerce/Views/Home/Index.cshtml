@@ -1,8 +1,26 @@
-﻿@{
+﻿@model IEnumerable<E_commerce.Models.AllProduct.Products>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h2>@ViewData["Title"]</h2>
+
+<div class="container">
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="card-text">@product.Description</p>
+                        <p class="card-text">@product.Price.ToString("C")</p>
+                        <p class="card-text">Categoria: @product.Category?.CategoryName ?? "N/A"</p>
+                        <a href="#" class="btn btn-primary">Acquista Ora</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>

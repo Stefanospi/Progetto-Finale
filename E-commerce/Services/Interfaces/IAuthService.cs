@@ -6,5 +6,7 @@ namespace E_commerce.Services.Interfaces
     {
         Task<Users> RegisterAsync(Users user);
         Task<Users> LoginAsync(Users user);
+        Task<Users> GetUserByIdAsync(int userId);
+        Task UpdateUserAsync(Users user);
     }
 }
