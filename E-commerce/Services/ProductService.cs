@@ -1,6 +1,7 @@
 ﻿using E_commerce.Context;
 using E_commerce.Models.AllProduct;
 using E_commerce.Models.Auth;
+using E_commerce.Models.ViewModel;
 using E_commerce.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -37,7 +38,8 @@ namespace E_commerce.Services
 
         public async Task<Products> UpdateProductsAsync(Products products)
         {
-            var product = await _ctx.Products.FindAsync(products.ProductId);
+
+            var product = await _ctx.Products.Include(ct => ct.Category).FirstOrDefaultAsync(p => p.ProductId == products.ProductId);
 
             if (product == null)
             {
