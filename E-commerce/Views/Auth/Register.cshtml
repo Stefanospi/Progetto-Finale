@@ -1,4 +1,5 @@
-﻿@model E_commerce.Models.Auth.Users
+﻿@using E_commerce.Models.Auth
+@model E_commerce.Models.Auth.Users
 
 @{
     ViewData["Title"] = "Registrazione";
@@ -46,11 +47,10 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="Gender" class="control-label"></label>
-        <input asp-for="Gender" class="form-control" />
+        <label asp-for="Gender" class="control-label">Genere:</label>
+        <select class="form-control" asp-items="Html.GetEnumSelectList<Gender>()"></select>
         <span asp-validation-for="Gender" class="text-danger"></span>
     </div>
-
     <div class="form-group">
         <label asp-for="PhoneNumber" class="control-label"></label>
         <input asp-for="PhoneNumber" class="form-control" />

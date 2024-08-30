@@ -1,5 +1,4 @@
 ﻿using E_commerce.Models.AllProduct;
-using E_commerce.Models.ViewModel;
 
 namespace E_commerce.Services.Interfaces
 {

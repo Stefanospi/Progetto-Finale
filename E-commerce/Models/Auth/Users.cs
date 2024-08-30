@@ -8,6 +8,12 @@ using System.Net;
 
 namespace E_commerce.Models.Auth
 {
+    public enum Gender
+    {
+        Maschio,
+        Femmina,
+        Altro
+    }
     public class Users
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -34,12 +40,14 @@ namespace E_commerce.Models.Auth
         [Required(ErrorMessage = "Inserisci una Password!")]
         public string PasswordHash { get; set; }  // Memorizza l'hash della password
 
+        [NotMapped]
+        public string NewPassword { get; set; }
+
         [Required]
         public DateTime BirthDate { get; set; }
 
         [Required]
-        [StringLength(10)]
-        public string Gender { get; set; }
+        public required Gender Gender { get; set; }
 
         [Required]
         [StringLength(15)]

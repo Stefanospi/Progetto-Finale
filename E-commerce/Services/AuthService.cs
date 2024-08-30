@@ -24,7 +24,7 @@ namespace E_commerce.Services
                 throw new Exception("L'Username inserito è già in uso!");
             }
             user.PasswordHash = PasswordHelper.HashPassword(user.PasswordHash);
-            var userRole = await _ctx.Roles.Where(r => r.IdRole == 2).FirstOrDefaultAsync(); //1 = admin, 2 = user
+            var userRole = await _ctx.Roles.Where(r => r.IdRole == 1).FirstOrDefaultAsync(); //1 = admin, 2 = user
             user.Roles.Add(userRole);
             await _ctx.Users.AddAsync(user);
             await _ctx.SaveChangesAsync();
@@ -66,6 +66,12 @@ namespace E_commerce.Services
             existingUser.BirthDate = user.BirthDate;
             existingUser.Gender = user.Gender;
             existingUser.PhoneNumber = user.PhoneNumber;
+
+            // Aggiorna la password solo se è fornita e diversa dalla password attuale
+            if (!string.IsNullOrEmpty(user.NewPassword))
+            {
+                existingUser.PasswordHash = PasswordHelper.HashPassword(user.NewPassword);
+            }
 
             // Salva le modifiche nel database
             _ctx.Users.Update(existingUser);

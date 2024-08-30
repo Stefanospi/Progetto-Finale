@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using E_commerce.Services;
 
 namespace E_commerce.Controllers
 {
@@ -100,26 +101,21 @@ namespace E_commerce.Controllers
             return View(user);
         }
 
-        // Gestisce l'aggiornamento del profilo
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditProfile(Users user)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(user);
-            }
 
-            try
-            {
+                // Solo aggiorna la password se è stata fornita
+                if (!string.IsNullOrEmpty(user.NewPassword))
+                {
+                    // Considera di aggiungere ulteriori validazioni per la nuova password
+                    user.PasswordHash = PasswordHelper.HashPassword(user.NewPassword);
+                }
+
                 await _authSvc.UpdateUserAsync(user);
                 return RedirectToAction("Index", "Home");
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("UpdateError", ex.Message);
-                return View(user);
-            }
+
         }
     }
 }
