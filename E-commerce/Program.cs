@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Stripe;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 //CONNECTION - DATACONTEXT
@@ -47,7 +48,7 @@ builder.Services.AddAuthorization(options =>
 //SERVICES
 builder.Services
     .AddScoped<IAuthService, AuthService>()
-    .AddScoped<IProductService, ProductService>()
+    .AddScoped<IProductService, E_commerce.Services.ProductService>()
     .AddScoped<ICategoriesService, CategoriesService>();
 
 // Add services to the container.
