@@ -27,15 +27,12 @@ namespace E_commerce.Controllers
         [HttpPost]
         public async Task<IActionResult> AddAddress(Addresses address)
         {
-
                 var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
                 address.UserId = userId;  // Associa l'indirizzo all'utente autenticato
                 await _addressService.AddAddresses(address);
 
                 // Dopo aver salvato l'indirizzo, reindirizza alla selezione dell'indirizzo per l'ordine
                 return RedirectToAction("Index","Home");
-            
-
         }
 
 
