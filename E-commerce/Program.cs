@@ -4,6 +4,7 @@ using E_commerce.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
