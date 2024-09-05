@@ -9,10 +9,13 @@ namespace E_commerce.Models.ProductCart
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CartId { get; set; }
 
-        [Required]
-        public int UserId { get; set; }
-        public Users User { get; set; }
+        public int? UserId { get; set; }  // Reso nullable per gestire gli utenti non autenticati
+        [ForeignKey("UserId")]
+        public Users? User { get; set; }
+
+        public string ?SessionId { get; set; }  // Aggiunta per gli utenti non autenticati
 
         public ICollection<CartItems> CartItems { get; set; } = new List<CartItems>();
     }
+
 }

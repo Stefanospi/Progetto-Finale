@@ -37,6 +37,7 @@ namespace E_commerce.Context
 
             // Chiama il metodo base per garantire che qualsiasi configurazione predefinita o comportamenti siano applicati
             base.OnModelCreating(modelBuilder);
+
         }
 
 

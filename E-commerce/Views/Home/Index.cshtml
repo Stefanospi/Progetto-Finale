@@ -25,7 +25,14 @@
                         <p class="card-text">@product.Description</p>
                         <p class="card-text">@product.Price.ToString("C")</p>
                         <p class="card-text">Categoria: @product.Category.CategoryName</p>
-                        <a href="#" class="btn btn-primary">Acquista Ora</a>
+                        <form asp-action="AddToCart" asp-controller="Cart" method="post">
+                            <input type="hidden" name="productId" value="@product.ProductId" />
+
+                            <label for="quantity">Quantità:</label>
+                            <input type="number" name="quantity" min="1" value="1" class="form-control mb-2" style="width: 80px;" />
+
+                            <button type="submit" class="btn btn-primary">Acquista Ora</button>
+                        </form>
                         @if (User.IsInRole("admin"))
                         {
                             <a href="@Url.Action("Edit", "Product", new { id = product.ProductId })" class="btn btn-primary">Modifica</a>

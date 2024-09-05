@@ -49,7 +49,9 @@ builder.Services.AddAuthorization(options =>
 builder.Services
     .AddScoped<IAuthService, AuthService>()
     .AddScoped<IProductService, E_commerce.Services.ProductService>()
-    .AddScoped<ICategoriesService, CategoriesService>();
+    .AddScoped<ICategoriesService, CategoriesService>()
+    .AddScoped<ICartService, CartService>()
+    .AddScoped<IAddressService, AddressService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

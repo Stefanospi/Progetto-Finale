@@ -1,0 +1,49 @@
+﻿@model IEnumerable<E_commerce.Models.ProductCart.CartItems>
+
+<h2>Carrello</h2>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Prodotto</th>
+                <th>Quantità</th>
+                <th>Prezzo Unitario</th>
+                <th>Totale</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Product.Name</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Product.Price</td>
+                    <td>@(item.Quantity * item.Product.Price)</td>
+                    <td>
+                        <form asp-action="RemoveFromCart" method="post">
+                            <input type="hidden" name="cartItemId" value="@item.CartItemId" />
+                            <button type="submit" class="btn btn-danger">Rimuovi</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div>
+        <form asp-action="ClearCart" method="post">
+            <input type="hidden" name="cartId" value="@Model.First().CartId" />
+            <button type="submit" class="btn btn-warning">Svuota Carrello</button>
+        </form>
+    </div>
+    <div class="mt-3">
+        <a href="@Url.Action("AddAddress", "Checkout")" class="btn btn-success">Procedi al Checkout</a>
+    </div>
+}
+else
+{
+    <p>Il carrello è vuoto.</p>
+}
