@@ -1,0 +1,22 @@
+﻿@model IEnumerable<E_commerce.Models.Auth.Addresses>
+
+<h2>Seleziona un indirizzo di spedizione</h2>
+
+<form asp-action="CreateOrder" method="post">
+    <div class="form-group">
+        <label for="address">Indirizzo di spedizione:</label>
+        <select id="address" name="addressId" class="form-control" required>
+            @foreach (var address in Model)
+            {
+                <option value="@address.IdAddress">
+                    @address.AddressLine1, @address.City, @address.State, @address.PostalCode, @address.Country
+                </option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Procedi con l'ordine</button>
+</form>
+
+<!-- Pulsante per aggiungere un nuovo indirizzo -->
+<a href="@Url.Action("AddAddress", "Checkout", new { forceAdd = true })" class="btn btn-secondary">Aggiungi nuovo indirizzo</a>

@@ -22,9 +22,9 @@ namespace E_commerce.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Products products)
+        public async Task<IActionResult> Create(Products products,IFormFile image)
         {
-            await _productService.CreateProductsAsync(products);
+            await _productService.CreateProductsAsync(products,image);
             return RedirectToAction("Index","Home");
         }
 
@@ -46,10 +46,10 @@ namespace E_commerce.Controllers
         // Metodo per gestire l'aggiornamento del prodotto
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Products product)
+        public async Task<IActionResult> Edit(Products product,IFormFile image)
         {
 
-            await _productService.UpdateProductsAsync(product);
+            await _productService.UpdateProductsAsync(product,image);
             return RedirectToAction("Index", "Home");
             
 

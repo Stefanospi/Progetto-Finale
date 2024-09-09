@@ -1,6 +1,7 @@
 ﻿using E_commerce.Context;
 using E_commerce.Models.Auth;
 using E_commerce.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace E_commerce.Services
 {
@@ -17,5 +18,11 @@ namespace E_commerce.Services
             await _ctx.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<Addresses>> GetAddressesByUserIdAsync(int userId)
+        {
+            return await _ctx.Addresses
+                .Where(a => a.UserId == userId)  // Filtro per l'utente specifico
+                .ToListAsync();  // Recupera la lista di indirizzi
+        }
     }
 }

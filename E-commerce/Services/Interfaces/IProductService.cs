@@ -4,10 +4,10 @@ namespace E_commerce.Services.Interfaces
 {
     public interface IProductService
     {
-        Task<Products>CreateProductsAsync(Products products);
+        Task<Products>CreateProductsAsync(Products products, IFormFile image);
         Task<IEnumerable<Products>>GetProductsAsync();
         Task<Products> GetProductsById(int id);
-        Task<Products> UpdateProductsAsync(Products products);
+        Task<Products> UpdateProductsAsync(Products products, IFormFile imageFile);
 
     }
 }
