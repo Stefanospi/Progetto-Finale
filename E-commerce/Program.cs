@@ -55,7 +55,8 @@ builder.Services
     .AddScoped<ICategoriesService, CategoriesService>()
     .AddScoped<ICartService, CartService>()
     .AddScoped<IAddressService, AddressService>()
-    .AddScoped<IOrderService,OrderService>();
+    .AddScoped<IOrderService,OrderService>()
+    .AddScoped<IStripePaymentService,StripePaymentService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

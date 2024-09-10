@@ -20,3 +20,22 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Crea colonne dinamiche */
+    grid-gap: 15px; /* Spazio tra gli elementi */
+}
+
+.product-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    background-color: #fff;
+    text-align: center;
+}
+
+    .product-card img {
+        width: 100%;
+        height: auto;
+        object-fit: cover; /* Adatta l'immagine mantenendo le proporzioni */
+    }

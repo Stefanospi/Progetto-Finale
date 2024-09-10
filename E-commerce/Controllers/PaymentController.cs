@@ -9,55 +9,39 @@ public class PaymentController : Controller
 {
     private readonly IOrderService _orderService;
     private readonly ICartService _cartService;
+    private readonly IStripePaymentService _stripePaymentService;
 
-    public PaymentController(IOrderService orderService, ICartService cartService)
+    public PaymentController(IOrderService orderService, ICartService cartService, IStripePaymentService stripePaymentService)
     {
         _orderService = orderService;
         _cartService = cartService;
+        _stripePaymentService = stripePaymentService;
     }
 
     [HttpGet]
     public async Task<IActionResult> Checkout(int orderId)
     {
-        // Recupera l'ordine dal database
-        var order = await _orderService.GetOrderByIdAsync(orderId);
-        if (order == null)
+        try
         {
-            return NotFound("Ordine non trovato.");
+            // Creazione della sessione di pagamento
+            var session = await _stripePaymentService.CreateCheckoutSessionAsync(
+                orderId,
+                "usd", // Moneta
+                100m,  // Sostituisci con il prezzo reale del prodotto o dell'ordine
+                Url.Action("Success", "Payment", new { orderId = orderId }, Request.Scheme),
+                Url.Action("Cancel", "Payment", null, Request.Scheme)
+            );
+
+            // Reindirizza l'utente all'URL di pagamento Stripe
+            return Redirect(session.Url);
         }
-
-        // Creazione delle opzioni della sessione di pagamento
-        var options = new SessionCreateOptions
+        catch (Exception ex)
         {
-            PaymentMethodTypes = new List<string> { "card" },
-            LineItems = new List<SessionLineItemOptions>
-        {
-            new SessionLineItemOptions
-            {
-                PriceData = new SessionLineItemPriceDataOptions
-                {
-                    Currency = "usd",
-                    ProductData = new SessionLineItemPriceDataProductDataOptions
-                    {
-                        Name = "Ordine #" + order.OrderId
-                    },
-                    UnitAmount = (long)(order.TotalAmount * 100), // Prezzo in centesimi
-                },
-                Quantity = 1,
-            },
-        },
-            Mode = "payment",
-            SuccessUrl = Url.Action("Success", "Payment", new { orderId = order.OrderId }, Request.Scheme),
-            CancelUrl = Url.Action("Cancel", "Payment", null, Request.Scheme),
-        };
-
-        var service = new SessionService();
-        Session session = service.Create(options);
-
-        // Reindirizza direttamente l'utente all'URL di pagamento di Stripe
-        return Redirect(session.Url);
+            // Gestisci errori
+            return BadRequest(ex.Message);
+        }
     }
-
+    [HttpGet]
     public async Task<IActionResult> Success(int orderId)
     {
         // Recupera l'ordine dal database
@@ -71,12 +55,25 @@ public class PaymentController : Controller
         order.Status = "Paid";
         await _orderService.UpdateOrderAsync(order);
 
-        // Pulisci il carrello
-        await _cartService.ClearCartAsync(order.UserId);
+        // Controlla se l'utente è autenticato
+        if (User.Identity.IsAuthenticated)
+        {
+            // Svuota il carrello usando l'UserId
+            await _cartService.ClearCartAsync(order.UserId);
+        }
+        else
+        {
+            //// Usa il SessionId per identificare il carrello degli utenti non loggati
+            //string sessionId = Request.Cookies["SessionId"];
+            //if (!string.IsNullOrEmpty(sessionId))
+            //{
+            //    await _cartService.ClearCartAsync(sessionId);
+            //}
+        }
 
-        return View();
+        // Passa l'ordine alla vista per mostrarlo
+        return View(order);
     }
-
     public IActionResult Cancel()
     {
         // Mostra una pagina di pagamento annullato
