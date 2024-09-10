@@ -5,13 +5,11 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Stripe;
-using E_commerce.Models.PaymentStripe;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configura Stripe
-builder.Services.Configure<StripeSetting>(builder.Configuration.GetSection("Stripe"));
+//Stripe Settings Configuration
 StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 
 //CONNECTION - DATACONTEXT

@@ -1,4 +1,4 @@
-﻿using E_commerce.Models.PaymentStripe;
+﻿
 using E_commerce.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -9,16 +9,14 @@ public class PaymentController : Controller
 {
     private readonly IOrderService _orderService;
     private readonly ICartService _cartService;
-    private readonly StripeSetting _stripeSettings;
 
-    public PaymentController(IOptions<StripeSetting> stripeSettings, IOrderService orderService, ICartService cartService)
+    public PaymentController(IOrderService orderService, ICartService cartService)
     {
-        _stripeSettings = stripeSettings.Value;
         _orderService = orderService;
         _cartService = cartService;
     }
 
-    [HttpPost]
+    [HttpGet]
     public async Task<IActionResult> Checkout(int orderId)
     {
         // Recupera l'ordine dal database
@@ -28,6 +26,7 @@ public class PaymentController : Controller
             return NotFound("Ordine non trovato.");
         }
 
+        // Creazione delle opzioni della sessione di pagamento
         var options = new SessionCreateOptions
         {
             PaymentMethodTypes = new List<string> { "card" },
@@ -55,7 +54,8 @@ public class PaymentController : Controller
         var service = new SessionService();
         Session session = service.Create(options);
 
-        return Json(new { id = session.Id });
+        // Reindirizza direttamente l'utente all'URL di pagamento di Stripe
+        return Redirect(session.Url);
     }
 
     public async Task<IActionResult> Success(int orderId)
