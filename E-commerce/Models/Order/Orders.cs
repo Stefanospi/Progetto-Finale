@@ -9,9 +9,11 @@ namespace E_commerce.Models.Order
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int OrderId { get; set; }
 
-        [Required]
-        public int UserId { get; set; }
+ 
+        public int? UserId { get; set; }
         public Users User { get; set; }
+        // Aggiungiamo SessionId per utenti non loggati
+        public string?SessionId { get; set; }  // Per gli utenti anonimi
 
         [Required]
         public DateTime OrderDate { get; set; }

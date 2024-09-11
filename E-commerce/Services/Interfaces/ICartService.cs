@@ -11,6 +11,8 @@ namespace E_commerce.Services.Interfaces
         Task<Cart> GetCartByUserIdAsync(int userId);
         Task RemoveFromCartAsync(int cartItemId);
         Task ClearCartAsync(int cartId);
+        Task ClearCartNoLogginAsync(string sessionId);
+
     }
 
 

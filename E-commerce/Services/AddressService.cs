@@ -18,6 +18,13 @@ namespace E_commerce.Services
             await _ctx.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<Addresses>> GetAddressesBySessionIdAsync(string sessionId)
+        {
+            return await _ctx.Addresses
+                .Where(a => a.SessionId == sessionId)
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<Addresses>> GetAddressesByUserIdAsync(int userId)
         {
             return await _ctx.Addresses

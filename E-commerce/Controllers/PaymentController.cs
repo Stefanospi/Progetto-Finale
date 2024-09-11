@@ -58,19 +58,20 @@ public class PaymentController : Controller
         // Controlla se l'utente è autenticato
         if (User.Identity.IsAuthenticated)
         {
-            // Svuota il carrello usando l'UserId
-            await _cartService.ClearCartAsync(order.UserId);
+            var cart = await _cartService.GetCartByUserIdAsync(order.UserId.Value);
+            if (cart != null)
+            {
+                await _cartService.ClearCartAsync(cart.CartId);  // Svuota il carrello autenticato
+            }
         }
         else
         {
-            //// Usa il SessionId per identificare il carrello degli utenti non loggati
-            //string sessionId = Request.Cookies["SessionId"];
-            //if (!string.IsNullOrEmpty(sessionId))
-            //{
-            //    await _cartService.ClearCartAsync(sessionId);
-            //}
+            string sessionId = Request.Cookies["SessionId"];
+            if (!string.IsNullOrEmpty(sessionId))
+            {
+                await _cartService.ClearCartNoLogginAsync(sessionId);  // Svuota il carrello non autenticato
+            }
         }
-
         // Passa l'ordine alla vista per mostrarlo
         return View(order);
     }

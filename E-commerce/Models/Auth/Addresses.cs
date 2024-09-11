@@ -33,7 +33,10 @@ namespace E_commerce.Models.Auth
 
         // Relazione con l'utente
         [ForeignKey("User")]
-        public int UserId { get; set; }
+        public int?UserId { get; set; }
         public Users User { get; set; }
+
+        // Aggiunta di SessionId per gli utenti non autenticati
+        public string?SessionId { get; set; }  // Utilizzato per identificare gli indirizzi degli utenti non loggati
     }
 }

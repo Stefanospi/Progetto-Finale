@@ -6,5 +6,7 @@ namespace E_commerce.Services.Interfaces
     {
         Task AddAddresses(Addresses addresses);
         Task<IEnumerable<Addresses>> GetAddressesByUserIdAsync(int userId);
+        Task<IEnumerable<Addresses>> GetAddressesBySessionIdAsync(string sessionId);
+
     }
 }

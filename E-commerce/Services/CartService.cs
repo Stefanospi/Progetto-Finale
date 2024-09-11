@@ -104,7 +104,19 @@ namespace E_commerce.Services
             var cart = await _context.Cart.Include(c => c.CartItems).FirstOrDefaultAsync(c => c.CartId == cartId);
             if (cart != null)
             {
-                _context.CartItems.RemoveRange(cart.CartItems);
+                _context.CartItems.RemoveRange(cart.CartItems);  // Rimuove tutti i prodotti dal carrello
+                _context.Cart.Remove(cart);  // Rimuove il carrello stesso
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task ClearCartNoLogginAsync(string sessionId)
+        {
+            var cart = await _context.Cart.Include(c => c.CartItems).FirstOrDefaultAsync(c => c.SessionId == sessionId);
+            if (cart != null)
+            {
+                _context.CartItems.RemoveRange(cart.CartItems);  // Rimuove i prodotti associati
+                _context.Cart.Remove(cart);  // Rimuove il carrello
                 await _context.SaveChangesAsync();
             }
         }
