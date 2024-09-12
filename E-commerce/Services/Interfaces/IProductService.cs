@@ -8,6 +8,7 @@ namespace E_commerce.Services.Interfaces
         Task<IEnumerable<Products>>GetProductsAsync();
         Task<Products> GetProductsById(int id);
         Task<Products> UpdateProductsAsync(Products products, IFormFile imageFile);
+        Task<Products> DeleteProductAsync(int id);
 
     }
 }

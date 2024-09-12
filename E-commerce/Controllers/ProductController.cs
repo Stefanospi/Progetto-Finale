@@ -54,5 +54,12 @@ namespace E_commerce.Controllers
             
 
         }
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _productService.DeleteProductAsync(id);
+            return RedirectToAction("Index", "Home");
+
+        }
     }
 }

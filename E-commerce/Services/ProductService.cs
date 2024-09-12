@@ -30,6 +30,13 @@ namespace E_commerce.Services
 
         }
 
+        public async Task<Products> DeleteProductAsync(int id)
+        {
+            var product = await _ctx.Products.FindAsync(id);
+            _ctx.Products.Remove(product);
+            await _ctx.SaveChangesAsync();
+            return product;
+        }
         public async Task<IEnumerable<Products>> GetProductsAsync()
         {
             // Recupera tutti i prodotti dal database

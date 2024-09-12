@@ -7,21 +7,23 @@
 <h2>@ViewData["Title"]</h2>
 
 <div class="container">
-    <div class="container product-grid">
+
         @foreach (var product in Model)
         {
-            <div class="product-card">
-                <h5 class="product-title">@product.Name</h5>
+            <div class="card" style="width: 18rem;">
+                
                 @if (product.Image != null && product.Image.Length > 0)
                 {
-                    <img src="data:image/png;base64,@Convert.ToBase64String(product.Image)" alt="@product.Name" />
+                    <img class="card-img-top"src="data:image/png;base64,@Convert.ToBase64String(product.Image)" alt="@product.Name" />
                 }
                 else
                 {
                     <span>Nessuna immagine</span>
                 }
-                <p class="product-description">@product.Description</p>
-                <p class="product-price">@product.Price.ToString("C")</p>
+                <div class="card-body">
+                    <h5 class="product-title">@product.Name</h5>
+                    <p class="product-description">@product.Description</p>
+                    <p class="product-price">@product.Price.ToString("C")</p>
                 <form asp-action="AddToCart" asp-controller="Cart" method="post">
                     <input type="hidden" name="productId" value="@product.ProductId" />
 
@@ -34,8 +36,14 @@
                 @if (User.IsInRole("admin"))
                 {
                     <a href="@Url.Action("Edit", "Product", new { id = product.ProductId })" class="btn btn-primary">Modifica</a>
+                        <form asp-controller="Product" asp-action="Delete" method="post" onsubmit="return confirm('Sei sicuro di voler eliminare questo prodotto?')">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" value="@product.ProductId" name="id" />
+                            <button type="submit" class="btn btn-danger">Elimina</button>
+                        </form>                
                 }
+                </div>
             </div>
         }
-    </div>
+
 </div>
