@@ -45,6 +45,13 @@ namespace E_commerce.Services
                                  .ToListAsync();
         }
 
+        public async Task<IEnumerable<Products>> GetProductsByCategoryAsync(int categoryId)
+        {
+            return await _ctx.Products
+                     .Where(p => p.CategoryId == categoryId)
+                     .ToListAsync();
+        }
+
         //Recupera il prodotto con quel singolo id
         public async Task<Products> GetProductsById(int id)
         {

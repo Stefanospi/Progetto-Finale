@@ -6,7 +6,13 @@
 
 <h2>@ViewData["Title"]</h2>
 
+
+
+
+
+<h3>Products:</h3>
 <div class="container">
+    <div class="row">
 
         @foreach (var product in Model)
         {
@@ -21,9 +27,10 @@
                     <span>Nessuna immagine</span>
                 }
                 <div class="card-body">
-                    <h5 class="product-title">@product.Name</h5>
-                    <p class="product-description">@product.Description</p>
-                    <p class="product-price">@product.Price.ToString("C")</p>
+                    <h5 class="card-title">@product.Name</h5>
+                    <p class="card-text">@product.Description</p>
+                    <p class="card-text">@product.Price.ToString("C")</p>
+                    <p action="card-text">@product.Category.CategoryName</p>
                 <form asp-action="AddToCart" asp-controller="Cart" method="post">
                     <input type="hidden" name="productId" value="@product.ProductId" />
 
@@ -45,5 +52,6 @@
                 </div>
             </div>
         }
+        </div>
 
 </div>
