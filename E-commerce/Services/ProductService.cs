@@ -24,12 +24,11 @@ namespace E_commerce.Services
                 }
             }
 
+            // Salvataggio prodotto
             _ctx.Products.Add(products);
             await _ctx.SaveChangesAsync();
             return products;
-
         }
-
         public async Task<Products> DeleteProductAsync(int id)
         {
             var product = await _ctx.Products.FindAsync(id);
@@ -55,12 +54,14 @@ namespace E_commerce.Services
         //Recupera il prodotto con quel singolo id
         public async Task<Products> GetProductsById(int id)
         {
-            return await _ctx.Products.FindAsync(id);
+            return await _ctx.Products
+                .Include(p=> p.Category)
+                .FirstOrDefaultAsync(p=>p.ProductId==id);
         }
 
         public async Task<Products> UpdateProductsAsync(Products products, IFormFile imageFile)
         {
-            var product = await _ctx.Products.Include(ct => ct.Category).FirstOrDefaultAsync(p => p.ProductId == products.ProductId);
+            var product = await _ctx.Products.FindAsync(products.ProductId);
 
             if (product == null)
             {
@@ -70,9 +71,9 @@ namespace E_commerce.Services
             product.Name = products.Name;
             product.Description = products.Description;
             product.Price = products.Price;
-            product.CategoryId = products.CategoryId;
+            product.StockQuantity = products.StockQuantity;
+            product.Sizes = products.Sizes; // Aggiornamento delle taglie
 
-            // Gestione dell'immagine
             if (imageFile != null && imageFile.Length > 0)
             {
                 using (var ms = new MemoryStream())

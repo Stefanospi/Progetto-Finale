@@ -27,5 +27,8 @@ namespace E_commerce.Models.AllProduct
 
         public byte[]? Image { get; set; }
 
+        // Proprietà per le taglie memorizzate come stringa separata da virgole
+        public string Sizes { get; set; } // Esempio: "S,M,L,XL"
+
     }
 }

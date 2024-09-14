@@ -10,21 +10,26 @@ namespace E_commerce.Controllers
         private readonly ICartService _cartService;
         private readonly IAuthService _authService;
 
-        public CartController(ICartService cartService,IAuthService authService)
+        public CartController(ICartService cartService, IAuthService authService)
         {
             _cartService = cartService;
             _authService = authService;
         }
 
+        public async Task<IActionResult> GetCartItemCount()
+        {
+            await UpdateCartItemCount();
+            return PartialView("_CartItemCountPartial", ViewBag.CartItemCount);
+        }
 
         public async Task<IActionResult> CartProduct()
         {
             var userId = User.Identity.IsAuthenticated ? int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value) : (int?)null;
             Cart cart = null;
 
-            if (userId.HasValue)  // Controlla se userId ha un valore
+            if (userId.HasValue)
             {
-                cart = await _cartService.GetCartByUserIdAsync(userId.Value);  // Usa userId.Value
+                cart = await _cartService.GetCartByUserIdAsync(userId.Value);
             }
             else
             {
@@ -35,51 +40,50 @@ namespace E_commerce.Controllers
                 }
             }
 
+            // Aggiorna il conteggio degli articoli nel carrello
+            await UpdateCartItemCount();
+
             return View(cart?.CartItems ?? new List<CartItems>());
         }
 
         [HttpPost]
         public async Task<IActionResult> AddToCart(int productId, int quantity)
         {
-            // Controlla se l'utente è autenticato e recupera l'ID utente se presente
             var userId = User.Identity.IsAuthenticated
                 ? int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value)
                 : (int?)null;
 
             if (userId.HasValue)
             {
-                // Se l'utente è autenticato, aggiungi al carrello basato sull'utente
                 await _cartService.AddToCartAsync(userId.Value, productId, quantity);
             }
             else
             {
-                // Se l'utente non è autenticato, gestisci tramite SessionId
                 string sessionId = Request.Cookies["SessionId"] ?? Guid.NewGuid().ToString();
 
-                // Se il cookie di sessione non esiste, crea un nuovo sessionId e aggiungilo al cookie
                 if (Request.Cookies["SessionId"] == null)
                 {
                     Response.Cookies.Append("SessionId", sessionId, new CookieOptions
                     {
                         HttpOnly = true,
                         IsEssential = true,
-                        Expires = DateTime.UtcNow.AddDays(30) // Imposta una scadenza di 30 giorni
+                        Expires = DateTime.UtcNow.AddDays(30)
                     });
                 }
 
-                // Controlla se esiste già un carrello per questo sessionId
                 var cart = await _cartService.GetCartBySessionIdAsync(sessionId);
                 if (cart == null)
                 {
-                    // Crea un nuovo carrello per la sessione se non esiste
                     await _cartService.CreateCartForSessionAsync(sessionId, productId, quantity);
                 }
                 else
                 {
-                    // Aggiungi al carrello esistente
                     await _cartService.AddToCartAsyncForSession(sessionId, productId, quantity);
                 }
             }
+
+            // Aggiorna il conteggio degli articoli nel carrello dopo l'aggiunta
+            await UpdateCartItemCount();
 
             return RedirectToAction("CartProduct");
         }
@@ -88,6 +92,10 @@ namespace E_commerce.Controllers
         public async Task<IActionResult> RemoveFromCart(int cartItemId)
         {
             await _cartService.RemoveFromCartAsync(cartItemId);
+
+            // Aggiorna il conteggio degli articoli nel carrello dopo la rimozione
+            await UpdateCartItemCount();
+
             return RedirectToAction("CartProduct");
         }
 
@@ -95,7 +103,32 @@ namespace E_commerce.Controllers
         public async Task<IActionResult> ClearCart(int cartId)
         {
             await _cartService.ClearCartAsync(cartId);
+
+            // Aggiorna il conteggio degli articoli nel carrello dopo la pulizia
+            await UpdateCartItemCount();
+
             return RedirectToAction("CartProduct");
+        }
+
+        private async Task UpdateCartItemCount()
+        {
+            int itemCount = 0;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+                itemCount = await _cartService.GetCartItemCountAsync(userId);
+            }
+            else
+            {
+                var sessionId = Request.Cookies["SessionId"];
+                if (sessionId != null)
+                {
+                    itemCount = await _cartService.GetCartItemCountBySessionAsync(sessionId);
+                }
+            }
+
+            ViewBag.CartItemCount = itemCount;
         }
     }
 }

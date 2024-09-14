@@ -9,6 +9,9 @@ namespace E_commerce.Services.Interfaces
         Task AddToCartAsyncForSession(string sessionId, int productId, int quantity);
         Task<Cart> GetCartBySessionIdAsync(string sessionId);
         Task<Cart> GetCartByUserIdAsync(int userId);
+        Task<int> GetCartItemCountAsync(int userId);
+        Task<int> GetCartItemCountBySessionAsync(string sessionId);
+
         Task RemoveFromCartAsync(int cartItemId);
         Task ClearCartAsync(int cartId);
         Task ClearCartNoLogginAsync(string sessionId);

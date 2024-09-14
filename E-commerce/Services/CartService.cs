@@ -120,5 +120,22 @@ namespace E_commerce.Services
                 await _context.SaveChangesAsync();
             }
         }
+        public async Task<int> GetCartItemCountAsync(int userId)
+        {
+            var cart = await _context.Cart
+                .Include(c => c.CartItems)
+                .FirstOrDefaultAsync(c => c.UserId == userId);
+
+            return cart?.CartItems.Sum(ci => ci.Quantity) ?? 0;
+        }
+
+        public async Task<int> GetCartItemCountBySessionAsync(string sessionId)
+        {
+            var cart = await _context.Cart
+                .Include(c => c.CartItems)
+                .FirstOrDefaultAsync(c => c.SessionId == sessionId);
+
+            return cart?.CartItems.Sum(ci => ci.Quantity) ?? 0;
+        }
     }
 }

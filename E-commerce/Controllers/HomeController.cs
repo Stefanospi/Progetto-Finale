@@ -2,6 +2,7 @@ using E_commerce.Models;
 using E_commerce.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace E_commerce.Controllers
 {
@@ -10,11 +11,13 @@ namespace E_commerce.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IProductService _productService;
         private readonly ICategoriesService _categoriesService;
+        private readonly ICartService _cartService;
 
-        public HomeController(ILogger<HomeController> logger,IProductService productService,ICategoriesService categoriesService)
+        public HomeController(ILogger<HomeController> logger, IProductService productService, ICategoriesService categoriesService, ICartService cartService)
         {
             _categoriesService = categoriesService;
             _productService = productService;
+            _cartService = cartService;
             _logger = logger;
         }
 
@@ -24,6 +27,10 @@ namespace E_commerce.Controllers
             var products = await _productService.GetProductsAsync();
 
             ViewBag.Categories = categories;
+
+            // Imposta il conteggio degli articoli nel carrello
+            await SetCartItemCountAsync();
+
             return View(products);
         }
 
@@ -34,7 +41,32 @@ namespace E_commerce.Controllers
             var categories = await _categoriesService.GetCategoriesAsync();
 
             ViewBag.Categories = categories;
-            return View("Index", products);  // Usa la stessa vista Index per mostrare i prodotti filtrati
+
+            // Imposta il conteggio degli articoli nel carrello
+            await SetCartItemCountAsync();
+
+            return View("Index", products);
+        }
+
+        private async Task SetCartItemCountAsync()
+        {
+            int itemCount = 0;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+                itemCount = await _cartService.GetCartItemCountAsync(userId);
+            }
+            else
+            {
+                var sessionId = Request.Cookies["SessionId"];
+                if (sessionId != null)
+                {
+                    itemCount = await _cartService.GetCartItemCountBySessionAsync(sessionId);
+                }
+            }
+
+            ViewBag.CartItemCount = itemCount;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

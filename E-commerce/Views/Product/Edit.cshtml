@@ -48,6 +48,12 @@
         <input asp-for="Image" type="file" class="form-control" />
         <span asp-validation-for="Image" class="text-danger"></span>
     </div>
+    <div class="form-group">
+        <label for="Sizes" class="control-label">Taglie disponibili (separate da virgole):</label>
+        <input type="text" name="Sizes" class="form-control" placeholder="Esempio: S,M,L,XL" />
+        <span asp-validation-for="Sizes" class="text-danger"></span>
+    </div>
+
 
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Salva</button>
