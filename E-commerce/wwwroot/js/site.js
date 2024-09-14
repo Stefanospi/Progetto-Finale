@@ -39,3 +39,23 @@ document.getElementById('searchInput').addEventListener('keydown', function (eve
         window.location.href = '/Product/Search?query=' + encodeURIComponent(query);
     }
 });
+
+// Mostra i prodotti nascosti quando si clicca sul pulsante "Mostra Altro"
+document.getElementById('showMoreBtn').addEventListener('click', function () {
+    var hiddenProducts = document.querySelectorAll('.hidden-product');
+    hiddenProducts.forEach(function (product) {
+        product.style.display = 'block'; // Mostra i prodotti nascosti
+    });
+    document.getElementById('hideProductsBtn').style.display = 'inline-block'; // Mostra il pulsante "Nascondi Prodotti"
+    this.style.display = 'none'; // Nasconde il pulsante "Mostra Altro"
+});
+
+// Nasconde di nuovo i prodotti quando si clicca sul pulsante "Nascondi Prodotti"
+document.getElementById('hideProductsBtn').addEventListener('click', function () {
+    var hiddenProducts = document.querySelectorAll('.hidden-product');
+    hiddenProducts.forEach(function (product) {
+        product.style.display = 'none'; // Nasconde i prodotti
+    });
+    document.getElementById('showMoreBtn').style.display = 'inline-block'; // Mostra di nuovo il pulsante "Mostra Altro"
+    this.style.display = 'none'; // Nasconde il pulsante "Nascondi Prodotti"
+});

@@ -4,42 +4,85 @@
     ViewData["Title"] = "Home Page";
 }
 
-
-  
-
-
 <div class="container">
-    <h2>@ViewData["Title"]</h2>
     <div class="row">
-@foreach (var product in Model)
-{
-    <div class="col-md-4 col-sm-6 col-lg-3 mb-4">
-        <a href="@Url.Action("Details", "Product", new { id = product.ProductId })" class="text-decoration-none">
-            <div class="product-card text-center p-3" style="border: none; border-radius: 20px;">
-                <div class="position-relative">
-                    <!-- Immagine del prodotto -->
-                    @if (product.Image != null && product.Image.Length > 0)
-                    {
-                        <img class="img-personal" src="data:image/png;base64,@Convert.ToBase64String(product.Image)" alt="@product.Name" />
-                    }
-                    else
-                    {
-                        <span class="text-muted">Nessuna immagine</span>
-                    }
-
-                    <!-- Badge "NEW" in alto a sinistra -->
-                    <span class="badge badge-new position-absolute top-0 start-0 m-2">NEU</span>
-
-                    <!-- Prezzo in basso a sinistra -->
-                    <span class="badge price-badge position-absolute bottom-0 start-0 m-2">@product.Price.ToString("C")</span>
-                </div>
-            </div>
-        </a>
-        <div class="mt-1 text-center">
-                <h5 class="card-title-personal mt-2 text-truncate">@product.Name</h5>
-                <p class="card-text-personal text-muted">@DateTime.Now.ToString("Sa. dd. MMM. yyyy - HH:mm")</p>
+        <div class="col-12 my-4">
+            <video class="w-100" autoplay muted loop>
+                <source src="~/videos/STREETWEAR AD (720p, h264, youtube).mp4" type="video/mp4">
+            </video>
         </div>
     </div>
-}
+
+    <div class="row">
+        <!-- Prodotti visibili (primi 4 prodotti) -->
+        @foreach (var product in Model.Take(4))
+        {
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4">
+                <a href="@Url.Action("Details", "Product", new { id = product.ProductId })" class="text-decoration-none">
+                    <div class="product-card text-center p-3" style="border: none; border-radius: 20px;">
+                        <div class="position-relative">
+                            <!-- Immagine del prodotto -->
+                            @if (product.Image != null && product.Image.Length > 0)
+                            {
+                                <img class="img-personal" src="data:image/png;base64,@Convert.ToBase64String(product.Image)" alt="@product.Name" />
+                            }
+                            else
+                            {
+                                <span class="text-muted">Nessuna immagine</span>
+                            }
+
+                            <!-- Badge "NEW" in alto a sinistra -->
+                            <span class="badge badge-new position-absolute top-0 start-0 m-2">NEU</span>
+
+                            <!-- Prezzo in basso a sinistra -->
+                            <span class="badge price-badge position-absolute bottom-0 start-0 m-2">@product.Price.ToString("C")</span>
+                        </div>
+                    </div>
+                </a>
+                <div class="mt-1 text-center">
+                    <h5 class="card-title-personal mt-2 text-truncate">@product.Name</h5>
+                    <p class="card-text-personal text-muted">@DateTime.Now.ToString("Sa. dd. MMM. yyyy - HH:mm")</p>
+                </div>
+            </div>
+        }
+
+        <!-- Prodotti nascosti (verranno mostrati al click del pulsante) -->
+        @foreach (var product in Model.Skip(4))
+        {
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4 hidden-product" style="display:none;">
+                <a href="@Url.Action("Details", "Product", new { id = product.ProductId })" class="text-decoration-none">
+                    <div class="product-card text-center p-3" style="border: none; border-radius: 20px;">
+                        <div class="position-relative">
+                            <!-- Immagine del prodotto -->
+                            @if (product.Image != null && product.Image.Length > 0)
+                            {
+                                <img class="img-personal" src="data:image/png;base64,@Convert.ToBase64String(product.Image)" alt="@product.Name" />
+                            }
+                            else
+                            {
+                                <span class="text-muted">Nessuna immagine</span>
+                            }
+
+                            <!-- Badge "NEW" in alto a sinistra -->
+                            <span class="badge badge-new position-absolute top-0 start-0 m-2">NEU</span>
+
+                            <!-- Prezzo in basso a sinistra -->
+                            <span class="badge price-badge position-absolute bottom-0 start-0 m-2">@product.Price.ToString("C")</span>
+                        </div>
+                    </div>
+                </a>
+                <div class="mt-1 text-center">
+                    <h5 class="card-title-personal mt-2 text-truncate">@product.Name</h5>
+                    <p class="card-text-personal text-muted">@DateTime.Now.ToString("Sa. dd. MMM. yyyy - HH:mm")</p>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Pulsanti per mostrare e nascondere prodotti -->
+    <div class="text-center mt-2">
+        <button id="showMoreBtn" class="btn btn-primary">Mostra Altro</button>
+        <button id="hideProductsBtn" class="btn btn-secondary" style="display:none;">Nascondi Prodotti</button>
     </div>
 </div>
+
