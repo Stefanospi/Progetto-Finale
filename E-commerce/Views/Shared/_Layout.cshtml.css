@@ -88,3 +88,10 @@ button.accept-policy {
         color: #555 !important;
     }
 
+/*Badge del carrello*/
+.badge-cart-item-count {
+    font-size: 0.75rem; /* Riduce la dimensione del testo nel badge */
+    position: absolute;
+
+    transform: translate(50%, -50%);
+}
