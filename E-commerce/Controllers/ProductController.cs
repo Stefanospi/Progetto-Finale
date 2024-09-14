@@ -1,6 +1,7 @@
 ﻿using E_commerce.Models.AllProduct;
 using E_commerce.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace E_commerce.Controllers
 {
@@ -71,6 +72,13 @@ namespace E_commerce.Controllers
             }
 
             return View(product);
+        }
+        public async Task<IActionResult> Search(string query)
+        {
+            var filteredProducts = await _productService.SearchProducts(query);
+            ViewBag.Categories = await _categoriesService.GetCategoriesAsync();
+            return View("/Views/Home/Index.cshtml", filteredProducts);
+
         }
     }
 }

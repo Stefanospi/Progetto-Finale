@@ -86,5 +86,11 @@ namespace E_commerce.Services
             await _ctx.SaveChangesAsync();
             return product;
         }
+        public async Task<IEnumerable<Products>> SearchProducts(string query)
+        {
+            return await _ctx.Products
+                .Where(p=> p.Name.Contains(query))
+                .ToListAsync();
+        }
     }
 }

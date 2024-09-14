@@ -63,6 +63,13 @@
                     </ul>
                 </div>
 
+                <!-- Icona di ricerca -->
+                <a class="nav-link text-dark" href="javascript:void(0)" id="searchIcon">
+                    <i class="bi bi-search"></i>
+                </a>
+
+                <!-- Campo di input per la ricerca, inizialmente nascosto -->
+                <input type="text" id="searchInput" class="form-control me-2" placeholder="Cerca prodotto" style="display:none;" />
                 <!-- Icone a destra (Desktop & Mobile) -->
                 <div class="d-flex align-items-center">
                     @if (User.IsInRole("admin"))
