@@ -24,3 +24,68 @@ body {
     justify-content: space-between;
 }
 
+
+/* Stile per la card del prodotto */
+.product-card {
+    border-radius: 15px;
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Stile per l'immagine del prodotto */
+    .img-personal{
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+
+/* Badge in alto a sinistra */
+.badge-new {
+    background-color: #ff5252;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 12px;
+}
+
+/* Badge del prezzo in basso a sinistra */
+.price-badge {
+    background-color: #6c757d;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 20px;
+}
+
+/* Nome del prodotto */
+.card-title-personal {
+    font-weight: bold;
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Testo descrittivo */
+.card-text-personal {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+/* Animazione del pulsante */
+.product-card button {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+    .product-card button:hover {
+        background-color: #007bff;
+        transform: translateY(-3px);
+    }}

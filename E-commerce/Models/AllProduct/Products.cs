@@ -26,5 +26,6 @@ namespace E_commerce.Models.AllProduct
         public Categories Category { get; set; }
 
         public byte[]? Image { get; set; }
+
     }
 }

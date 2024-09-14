@@ -4,54 +4,72 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h2>@ViewData["Title"]</h2>
+
+  
 
 
-
-
-
-<h3>Products:</h3>
 <div class="container">
+    <h2>@ViewData["Title"]</h2>
     <div class="row">
-
         @foreach (var product in Model)
         {
-            <div class="card" style="width: 18rem;">
-                
-                @if (product.Image != null && product.Image.Length > 0)
-                {
-                    <img class="card-img-top"src="data:image/png;base64,@Convert.ToBase64String(product.Image)" alt="@product.Name" />
-                }
-                else
-                {
-                    <span>Nessuna immagine</span>
-                }
-                <div class="card-body">
-                    <h5 class="card-title">@product.Name</h5>
-                    <p class="card-text">@product.Description</p>
-                    <p class="card-text">@product.Price.ToString("C")</p>
-                    <p action="card-text">@product.Category.CategoryName</p>
-                <form asp-action="AddToCart" asp-controller="Cart" method="post">
-                    <input type="hidden" name="productId" value="@product.ProductId" />
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4">
+                <div class="product-card text-center p-3" style="border: none; border-radius: 20px;">
+                    <div class="position-relative">
+                        <!-- Immagine del prodotto -->
+                        @if (product.Image != null && product.Image.Length > 0)
+                        {
+                            <img class="img-personal" src="data:image/png;base64,@Convert.ToBase64String(product.Image)" alt="@product.Name" />
+                        }
+                        else
+                        {
+                            <span class="text-muted">Nessuna immagine</span>
+                        }
 
-                    <label for="quantity">Quantità:</label>
-                    <input type="number" name="quantity" min="1" value="1" class="form-control mb-2" style="width: 80px;" />
+                        <!-- Badge "NEW" in alto a sinistra -->
+                        <span class="badge badge-new position-absolute top-0 start-0 m-2">NEU</span>
 
-                    <button type="submit" class="btn btn-primary">Acquista Ora</button>
-                </form>
-
-                @if (User.IsInRole("admin"))
-                {
-                    <a href="@Url.Action("Edit", "Product", new { id = product.ProductId })" class="btn btn-primary">Modifica</a>
-                        <form asp-controller="Product" asp-action="Delete" method="post" onsubmit="return confirm('Sei sicuro di voler eliminare questo prodotto?')">
-                            @Html.AntiForgeryToken()
-                            <input type="hidden" value="@product.ProductId" name="id" />
-                            <button type="submit" class="btn btn-danger">Elimina</button>
-                        </form>                
-                }
+                        <!-- Prezzo in basso a sinistra -->
+                        <span class="badge price-badge position-absolute bottom-0 start-0 m-2">@product.Price.ToString("C")</span>
+                    </div>
                 </div>
+
+                <div class="container-fluid text-center mt-1">
+                    <div class="row">
+                        <div class="col">
+                            <!-- Nome del prodotto -->
+                            <h5 class="card-title-personal mt-2 text-truncate">@product.Name</h5>
+                            <p class="card-text-personal text-muted">@DateTime.Now.ToString("Sa. dd. MMM. yyyy - HH:mm")</p>
+                            <div class="row justify-content-center">
+                                <!-- Form per aggiungere al carrello -->
+                                <div class="col-4">
+                                    <form asp-action="AddToCart" asp-controller="Cart" method="post">
+                                        <input type="hidden" name="productId" value="@product.ProductId" />
+                                        <input type="hidden" name="quantity" value="1" />
+                                        <button type="submit" class="btn btn-primary btn-sm">Acquista</button>
+                                    </form>
+                                </div>
+
+                                <!-- Modifica e Elimina per amministratore -->
+                                @if (User.IsInRole("admin"))
+                                {
+                                    <div class="col-4">
+                                        <a href="@Url.Action("Edit", "Product", new { id = product.ProductId })" class="btn btn-secondary btn-sm">Modifica</a>
+                                    </div>
+                                    <div class="col-4">
+                                        <form asp-controller="Product" asp-action="Delete" method="post" onsubmit="return confirm('Sei sicuro di voler eliminare questo prodotto?')" style="display:inline-block;">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" value="@product.ProductId" name="id" />
+                                            <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
+                                        </form>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         }
-        </div>
-
+    </div>
 </div>
