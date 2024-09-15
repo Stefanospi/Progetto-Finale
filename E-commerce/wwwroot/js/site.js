@@ -15,25 +15,6 @@
 //});
 
 
-// Gestire il click sull'icona di ricerca
-document.getElementById('searchIcon').addEventListener('click', function () {
-    var searchInput = document.getElementById('searchInput');
-    if (searchInput.style.display === 'none') {
-        searchInput.style.display = 'block';
-        searchInput.focus(); // Porta il focus sul campo di input
-    } else {
-        searchInput.style.display = 'none';
-    }
-});
-
-// Gestire il submit della ricerca
-document.getElementById('searchInput').addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-        var query = event.target.value;
-        window.location.href = '/Product/Search?query=' + encodeURIComponent(query);
-    }
-});
-
 // Mostra i prodotti nascosti quando si clicca sul pulsante "Mostra Altro"
 document.getElementById('showMoreBtn').addEventListener('click', function () {
     var hiddenProducts = document.querySelectorAll('.hidden-product');

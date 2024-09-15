@@ -11,82 +11,107 @@
     <title>@ViewData["Title"] - E_commerce</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/E_commerce.styles.css" asp-append-version="true" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-navbar-personal">
-            <div class="container-fluid">
-                <!-- Logo -->
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">E_commerce</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+    <div class="container-fluid justify-content-between">
+        <!-- Left elements -->
+        <div class="d-flex">
+            <!-- Brand -->
+            <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="#">
+                <img
+                    src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
+                    height="20"
+                    alt="MDB Logo"
+                    loading="lazy"
+                    style="margin-top: 2px;"
+                />
+                
+            </a>
 
-                <!-- Bottone per il menu mobile -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+            <!-- Search form -->
+            <form class="input-group w-auto my-auto d-none d-sm-flex">
+                <input
+                    autocomplete="off"
+                    type="search"
+                    class="form-control rounded"
+                    placeholder="Search"
+                    style="min-width: 125px;"
+                />
+                <span class="input-group-text border-0 d-none d-lg-flex">
+                    <i class="bi bi-search"></i>
+                </span>
+            </form>
+        </div>
+        <!-- Left elements -->
 
-                <!-- Icone a destra (Desktop & Mobile) -->
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Icona di ricerca -->
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="javascript:void(0)" id="searchIcon">
-                                <i class="bi bi-search"></i>
-                            </a>
-                        </li>
-
-                        <!-- Campo di input per la ricerca, inizialmente nascosto -->
-                        <li class="nav-item">
-                            <input type="text" id="searchInput" class="form-control me-2" placeholder="Cerca prodotto" style="display:none;" />
-                        </li>
-
-                        <!-- Link per login e registrazione -->
-                        @if (!User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Login">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Register">Register</a>
-                            </li>
-                        }
-
-                        <!-- Link per home e carrello -->
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-house"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark position-relative" asp-area="" asp-controller="Cart" asp-action="CartProduct">
-                                <i class="bi bi-cart"></i>
+        <!-- Center elements -->
+        <ul class="navbar-nav flex-row d-none d-md-flex">
+                    <li class="nav-item me-3 me-lg-1 active">
+                        <a class="nav-link" href="@Url.Action("Index", "Home")">
+                            <span><i class="bi bi-house fa-lg"></i></span>
+                        </a>
+                    </li>
+        
+                    <li class="nav-item me-3 me-lg-1">
+                        <a class="nav-link position-relative" href="@Url.Action("CartProduct", "Cart")">
+                            <i class="bi bi-cart fa-lg"></i>
+                            <!-- Badge -->
                                 @await Html.PartialAsync("_CartItemCountPartial", (int?)ViewBag.CartItemCount ?? 0)
-                            </a>
-                        </li>
+                        </a>
+                    </li>
+                    @if (User.IsInRole("admin"))
+                    {
+                    <li class="nav-item me-3 me-lg-1">
+                        <a class="nav-link" href="@Url.Action("Create", "Product")">
+                            <span><i class="bi bi-plus fa-lg"></i></span>
+                        </a>
+                    </li>
+                    }
 
-                        <!-- Link aggiuntivi per admin -->
-                        @if (User.IsInRole("admin"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Create">
-                                    <i class="bi bi-plus"></i>
-                                </a>
-                            </li>
-                        }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                    <li class="nav-item me-3 me-lg-1">
+                        <a class="nav-link" href="@Url.Action("EditProfile", "Auth")">
+                            <span><i class="bi bi-person fa-lg"></i></span>
+                        </a>
+                    </li>
+                    }
+        </ul>
+        <!-- Center elements -->
 
-                        <!-- Link per il profilo utente -->
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="EditProfile">Edit</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Logout">Logout</a>
-                            </li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <!-- Right elements -->
+        <ul class="navbar-nav flex-row">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                    <li class="nav-item me-3 me-lg-1">
+                        <a class="nav-link" href="@Url.Action("Logout", "Auth")">
+                            <span><i class="bi bi-box-arrow-right"></i></span>
+                            Logout
+                        </a>
+                    </li>
+                    }
+                    else
+                    {
+                    <li class="nav-item me-3 me-lg-1">
+                        <a class="nav-link" href="@Url.Action("Login", "Auth")">
+                            <span><i class="bi bi-box-arrow-in-right"></i></span>
+                            Login
+                        </a>
+                    </li>
+                    <li class="nav-item me-3 me-lg-1">
+                        <a class="nav-link" href="@Url.Action("Register", "Auth")">
+                            <span><i class="bi bi-pencil-square"></i></span>
+                            Register
+                        </a>
+                    </li>
+                    }
+        </ul>
+        <!-- Right elements -->
+    </div>
+</nav>
     </header>
     <div class="container">
         <main role="main" class="pb-3">

@@ -14,24 +14,25 @@
     </div>
 
     <div class="row">
-        <h4>Categorie:</h4>
+        <h4 class="roboto-font">Categorie:</h4>
         @if (ViewBag.Categories != null)
         {
             <div class="d-flex flex-wrap gap-2 mb-3">
                 @foreach (var category in ViewBag.Categories)
                 {
                     <div class="col-auto mb-2">
-                        <a class="btn btn-success" asp-controller="Home" asp-action="FilterByCategory" asp-route-categoryId="@category.CategoryId">
+                        <a class="button-55 roboto-font" asp-controller="Home" asp-action="FilterByCategory" asp-route-categoryId="@category.CategoryId">
                             @category.CategoryName
                         </a>
                     </div>
+
                 }
             </div>
         }
     </div>
 
 
-    <div class="row">
+    <div class="row bg-personal p-4">
         <!-- Prodotti visibili (primi 4 prodotti) -->
         @foreach (var product in Model.Take(4))
         {
@@ -91,7 +92,7 @@
                 </a>
                 <div class="mt-1 text-center">
                     <h5 class="card-title-personal mt-2 text-truncate">@product.Name</h5>
-                    <p class="card-text-personal text-muted">@DateTime.Now.ToString("Sa. dd. MMM. yyyy - HH:mm")</p>
+                    <p class="card-text-personal text-muted ">@DateTime.Now.ToString("Sa. dd. MMM. yyyy - HH:mm")</p>
                 </div>
             </div>
         }
@@ -99,8 +100,8 @@
 
     <!-- Pulsanti per mostrare e nascondere prodotti -->
     <div class="text-center">
-        <button id="showMoreBtn" class="btn btn-primary">Mostra Altro</button>
-        <button id="hideProductsBtn" class="btn btn-secondary" style="display:none;">Nascondi Prodotti</button>
+        <button id="showMoreBtn" class="button-55">Mostra Altro</button>
+        <button id="hideProductsBtn" class="button-55" style="display:none;">Nascondi Prodotti</button>
     </div>
 </div>
 
