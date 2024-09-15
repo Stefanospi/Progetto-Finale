@@ -2,23 +2,17 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-document.addEventListener("DOMContentLoaded", function () {
-    var dropdowns = document.querySelectorAll('.dropdown');
 
-    dropdowns.forEach(function (dropdown) {
-        dropdown.addEventListener('mouseenter', function () {
-            var menu = dropdown.querySelector('.dropdown-menu');
-            dropdown.classList.add('show');
-            menu.classList.add('show');
-        });
-
-        dropdown.addEventListener('mouseleave', function () {
-            var menu = dropdown.querySelector('.dropdown-menu');
-            dropdown.classList.remove('show');
-            menu.classList.remove('show');
-        });
-    });
-});
+// Chiudi il menu dopo aver cliccato su un link
+//document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+//    link.addEventListener('click', function () {
+//        var navbarCollapse = document.querySelector('.navbar-collapse');
+//        var bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+//            toggle: false
+//        });
+//        bsCollapse.hide();
+//    });
+//});
 
 
 // Gestire il click sull'icona di ricerca

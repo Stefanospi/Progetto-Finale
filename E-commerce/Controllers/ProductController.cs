@@ -65,6 +65,8 @@ namespace E_commerce.Controllers
         public async Task<IActionResult> Details(int id)
         {
             var product = await _productService.GetProductsById(id);
+            ViewBag.Categories = await _categoriesService.GetCategoriesAsync();
+
 
             if (product == null)
             {
