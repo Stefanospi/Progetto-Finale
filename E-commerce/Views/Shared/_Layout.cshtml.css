@@ -33,38 +33,6 @@ button.accept-policy {
 }
 
 
-.navbar .navbar-brand {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.navbar-nav {
-    text-align: center;
-}
-
-    /* Dropdown animato */
-    .navbar-nav .dropdown-menu {
-        opacity: 0 !important;
-        visibility: hidden !important;
-        transform: translateY(20px) !important;
-        transition: all 0.3s ease-in-out !important;
-    }
-
-    .navbar-nav .dropdown:hover .dropdown-menu,
-    .navbar-nav .dropdown.show .dropdown-menu {
-        opacity: 1 !important;
-        visibility: visible !important;
-        transform: translateY(0) !important;
-    }
-/* Stile per link */
-.nav-item a.nav-link {
-    font-weight: 500 !important;
-    font-size: 18px !important;
-    padding: 1rem !important;
-    color: #000 !important;
-}
-
     .nav-item a.nav-link:hover {
         color: #555 !important;
     }
