@@ -169,23 +169,136 @@ a,a:hover{
     margin-bottom: 10px;
 }
 
-    .size-option input[type="radio"] {
-        display: none;
+.size-option input[type="radio"] {
+    display: none;
+}
+
+.size-option label {
+    display: inline-block;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    min-width: 70px;
+}
+
+.size-option input[type="radio"]:checked + label {
+    background-color: #333;
+    color: white;
+    border-color: #333;
+}
+
+/* Carrello */
+.cart-item {
+    border: 1px solid #eaeaea;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-bottom: 15px;
+    display: flex; /* Flexbox per allineare gli elementi */
+    justify-content: space-between; /* Distribuisce gli elementi tra immagine, info, quantità e pulsante di rimozione */
+    align-items: center; /* Allinea verticalmente gli elementi */
+}
+
+    .cart-item .col-md-1 {
+        margin-left: auto; /* Sposta la colonna della X completamente a destra */
+        text-align: right; /* Allinea il contenuto a destra */
     }
 
-    .size-option label {
-        display: inline-block;
-        padding: 10px 15px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-        text-align: center;
-        min-width: 70px;
+    .cart-item .btn-link {
+        text-decoration: none; /* Rimuove la sottolineatura dal pulsante */
+        font-size: 1.5rem; /* Aumenta la dimensione dell'icona X */
+        color: #dc3545; /* Colore rosso per il pulsante di rimozione */
     }
 
-    .size-option input[type="radio"]:checked + label {
-        background-color: #333;
-        color: white;
-        border-color: #333;
+        .cart-item .btn-link:hover {
+            color: #c82333; /* Colore più scuro al passaggio del mouse */
+        }
+
+.cart-item img {
+    width: 100px; /* Imposta la larghezza delle immagini del prodotto */
+    height: auto; /* Mantiene la proporzione dell'immagine */
+}
+
+.cart-item h5 {
+    margin: 0; /* Rimuove il margine superiore/inferiore del titolo del prodotto */
+    font-size: 1.2rem; /* Aumenta la dimensione del testo del titolo del prodotto */
+}
+
+.cart-item p {
+    margin: 5px 0; /* Spaziatura inferiore e superiore per i paragrafi */
+    font-size: 0.9rem; /* Dimensione del testo per le descrizioni */
+    color: #666; /* Colore del testo grigio per le descrizioni */
+}
+
+.cart-item .btn-link {
+    text-decoration: none; /* Rimuove la sottolineatura del pulsante di rimozione */
+    font-size: 1.5rem; /* Aumenta la dimensione dell'icona di rimozione */
+    color: #dc3545; /* Colore rosso per il pulsante di rimozione */
+}
+
+    .cart-item .btn-link:hover {
+        color: #c82333; /* Colore più scuro al passaggio del mouse sul pulsante di rimozione */
+    }
+
+.cart-item .text-end {
+    font-weight: bold; /* Grassetto per il prezzo totale dell'articolo */
+    font-size: 1rem; /* Dimensione del testo del prezzo */
+}
+
+.row {
+    margin-bottom: 10px; /* Spaziatura tra le righe del carrello */
+}
+
+hr {
+    border-color: #e0e0e0; /* Colore del separatore orizzontale */
+}
+
+/* Totale generale e pulsanti */
+.row.mt-4 .text-end p {
+    font-size: 1.5rem; /* Aumenta la dimensione del testo del totale generale */
+    font-weight: bold; /* Grassetto per il totale */
+}
+
+/* Bottone checkout */
+.button-56 {
+    align-self: center;
+    background-color: #000; /* Cambiato sfondo da bianco a nero */
+    background-image: none;
+    background-position: 0 90%;
+    background-repeat: repeat no-repeat;
+    background-size: 4px 3px;
+    border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #fff; /* Cambiato bordo da nero a bianco */
+    box-shadow: rgba(0, 0, 0, .2) 15px 28px 25px -18px;
+    box-sizing: border-box;
+    color: #fff; /* Cambiato testo da nero a bianco */
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1rem;
+    line-height: 23px;
+    outline: none;
+    padding: .75rem;
+    text-decoration: none;
+    transition: all 235ms ease-in-out;
+    border-bottom-left-radius: 15px 255px;
+    border-bottom-right-radius: 225px 15px;
+    border-top-left-radius: 255px 15px;
+    border-top-right-radius: 15px 225px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+    .button-56:hover {
+        box-shadow: rgba(255, 255, 255, .3) 2px 8px 8px -5px; /* Cambiato ombra da nero a bianco */
+        transform: translate3d(0, 2px, 0);
+    }
+
+    .button-56:focus {
+        box-shadow: rgba(255, 255, 255, .3) 2px 8px 4px -6px; /* Cambiato ombra da nero a bianco */
     }
