@@ -13,14 +13,14 @@
 
 <div class="container">
     <div class="row">
-        <h4 class="roboto-font">Categorie:</h4>
+        <h1 class="personal-title p-2">Categorie:</h1>
         @if (ViewBag.Categories != null)
         {
             <div class="d-flex flex-wrap gap-2 mb-3">
                 @foreach (var category in ViewBag.Categories)
                 {
                     <div class="col-auto mb-2">
-                        <a class="button-55 roboto-font" asp-controller="Home" asp-action="FilterByCategory" asp-route-categoryId="@category.CategoryId">
+                        <a class="button-55 playpen-sans" asp-controller="Home" asp-action="FilterByCategory" asp-route-categoryId="@category.CategoryId">
                             @category.CategoryName
                         </a>
                     </div>
@@ -99,8 +99,8 @@
 
     <!-- Pulsanti per mostrare e nascondere prodotti -->
     <div class="text-center">
-        <button id="showMoreBtn" class="button-55">Mostra Altro</button>
-        <button id="hideProductsBtn" class="button-55" style="display:none;">Nascondi Prodotti</button>
+        <button id="showMoreBtn" class="button-55 playpen-sans">Mostra Altro</button>
+        <button id="hideProductsBtn" class="button-55 playpen-sans" style="display:none;">Nascondi Prodotti</button>
     </div>
 </div>
 

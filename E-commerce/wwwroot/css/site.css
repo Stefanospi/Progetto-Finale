@@ -1,10 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-
+@import url('https://fonts.cdnfonts.com/css/graffiti-street');
+@import url('https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@100..800&display=swap');
 .roboto-font {
     font-family: "Roboto", sans-serif;
     font-weight: 300;
     font-style: normal;
 }
+
 
 html {
   font-size: 14px;
@@ -144,6 +146,46 @@ a,a:hover{
         box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
     }
 
+/* SFONDO PERSONALIZZATO PER I PRODOTTI */
 .bg-personal {
-    background: linear-gradient(180deg, black 0%, white 100%);
+    background: linear-gradient(180deg, #CDCDCD 0%, white 100%);
 }
+
+.personal-title {
+    font-family: 'Graffiti Street Expanded', sans-serif;
+}
+.playpen-sans{
+    font-family: "Playpen Sans", cursive;
+    font-optical-sizing: auto;
+    font-weight:400;
+    font-style: normal;
+}
+
+.size-selector {
+    gap: 10px;
+}
+
+.size-option {
+    margin-bottom: 10px;
+}
+
+    .size-option input[type="radio"] {
+        display: none;
+    }
+
+    .size-option label {
+        display: inline-block;
+        padding: 10px 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        text-align: center;
+        min-width: 70px;
+    }
+
+    .size-option input[type="radio"]:checked + label {
+        background-color: #333;
+        color: white;
+        border-color: #333;
+    }
