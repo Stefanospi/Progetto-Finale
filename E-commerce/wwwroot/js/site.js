@@ -34,3 +34,5 @@ document.getElementById('hideProductsBtn').addEventListener('click', function ()
     document.getElementById('showMoreBtn').style.display = 'inline-block'; // Mostra di nuovo il pulsante "Mostra Altro"
     this.style.display = 'none'; // Nasconde il pulsante "Nascondi Prodotti"
 });
+
+

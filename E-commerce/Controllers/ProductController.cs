@@ -82,5 +82,6 @@ namespace E_commerce.Controllers
             return View("/Views/Home/Index.cshtml", filteredProducts);
 
         }
+
     }
 }

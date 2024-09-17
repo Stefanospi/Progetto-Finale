@@ -15,115 +15,91 @@
 </head>
 <body>
     <header>
-<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
-    <div class="container-fluid justify-content-between">
-        <!-- Left elements -->
-        <div class="d-flex">
-            <!-- Brand -->
-            <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="#">
-                <img
-                    src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
-                    height="20"
-                    alt="MDB Logo"
-                    loading="lazy"
-                    style="margin-top: 2px;"
-                />
-                
-            </a>
+        <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+            <div class="container-fluid justify-content-between">
+                <!-- Left elements -->
+                <div class="d-flex">
+                    <!-- Brand -->
+                    <a class="navbar-brand me-2" asp-controller="Home" asp-action="Index">
+                        <img src="~/img/Modern Minimalist Graffiti Dream Brand Logo.png"
+                             alt="Brand Logo"
+                             loading="lazy"
+                             style="width: 125px; height:85px;" />
+                    </a>
 
-            <!-- Search form -->
-            <form class="input-group w-auto my-auto d-none d-sm-flex">
-                <input
-                    autocomplete="off"
-                    type="search"
-                    class="form-control rounded"
-                    placeholder="Search"
-                    style="min-width: 125px;"
-                />
-                <span class="input-group-text border-0 d-none d-lg-flex">
-                    <i class="bi bi-search"></i>
-                </span>
-            </form>
-        </div>
-        <!-- Left elements -->
-
-        <!-- Center elements -->
-        <ul class="navbar-nav flex-row d-none d-md-flex">
+                </div>
+                <!-- Center elements -->
+                <ul class="navbar-nav flex-row d-md-flex">
                     <li class="nav-item me-3 me-lg-1 active">
-                        <a class="nav-link" href="@Url.Action("Index", "Home")">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">
                             <span><i class="bi bi-house fa-lg"></i></span>
                         </a>
                     </li>
-        
+
                     <li class="nav-item me-3 me-lg-1">
-                        <a class="nav-link position-relative" href="@Url.Action("CartProduct", "Cart")">
+                        <a class="nav-link position-relative" asp-controller="Cart" asp-action="CartProduct">
                             <i class="bi bi-cart fa-lg"></i>
                             <!-- Badge -->
-                                @await Html.PartialAsync("_CartItemCountPartial", (int?)ViewBag.CartItemCount ?? 0)
+                            @await Html.PartialAsync("_CartItemCountPartial", (int?)ViewBag.CartItemCount ?? 0)
                         </a>
                     </li>
                     @if (User.IsInRole("admin"))
                     {
-                    <li class="nav-item me-3 me-lg-1">
-                        <a class="nav-link" href="@Url.Action("Create", "Product")">
-                            <span><i class="bi bi-plus fa-lg"></i></span>
-                        </a>
-                    </li>
+                        <li class="nav-item me-3 me-lg-1">
+                            <a class="nav-link" asp-controller="Product" asp-action="Create">
+                                <span><i class="bi bi-plus fa-lg"></i></span>
+                            </a>
+                        </li>
                     }
-
                     @if (User.Identity.IsAuthenticated)
                     {
-                    <li class="nav-item me-3 me-lg-1">
-                        <a class="nav-link" href="@Url.Action("EditProfile", "Auth")">
-                            <span><i class="bi bi-person fa-lg"></i></span>
-                        </a>
-                    </li>
+                        <li class="nav-item me-3 me-lg-1">
+                            <a class="nav-link" asp-controller="Auth" asp-action="Profile">
+                                <span><i class="bi bi-person fa-lg"></i></span>
+                            </a>
+                        </li>
                     }
-        </ul>
-        <!-- Center elements -->
-
-        <!-- Right elements -->
-        <ul class="navbar-nav flex-row">
+                </ul>
+                <!-- Right elements -->
+                <ul class="navbar-nav flex-row">
                     @if (User.Identity.IsAuthenticated)
                     {
-                    <li class="nav-item me-3 me-lg-1">
-                        <a class="nav-link" href="@Url.Action("Logout", "Auth")">
-                            <span><i class="bi bi-box-arrow-right"></i></span>
-                            Logout
-                        </a>
-                    </li>
+                        <li class="nav-item me-3 me-lg-1">
+                            <a class="nav-link" asp-controller="Auth" asp-action="Logout">
+                                <span><i class="bi bi-box-arrow-right"></i></span> Logout
+                            </a>
+                        </li>
                     }
                     else
                     {
-                    <li class="nav-item me-3 me-lg-1">
-                        <a class="nav-link" href="@Url.Action("Login", "Auth")">
-                            <span><i class="bi bi-box-arrow-in-right"></i></span>
-                            Login
-                        </a>
-                    </li>
-                    <li class="nav-item me-3 me-lg-1">
-                        <a class="nav-link" href="@Url.Action("Register", "Auth")">
-                            <span><i class="bi bi-pencil-square"></i></span>
-                            Register
-                        </a>
-                    </li>
+                        <li class="nav-item me-3 me-lg-1">
+                            <a class="nav-link" asp-controller="Auth" asp-action="Login">
+                                <span><i class="bi bi-box-arrow-in-right"></i></span> Login
+                            </a>
+                        </li>
+                        <li class="nav-item me-3 me-lg-1">
+                            <a class="nav-link" asp-controller="Auth" asp-action="Register">
+                                <span><i class="bi bi-pencil-square"></i></span> Register
+                            </a>
+                        </li>
                     }
-        </ul>
-        <!-- Right elements -->
-    </div>
-</nav>
+                </ul>
+            </div>
+        </nav>
     </header>
     <div class="container-fluid">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - E_commerce - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+@*     @if (!(ViewContext.RouteData.Values["controller"].ToString() == "Auth" && ViewContext.RouteData.Values["action"].ToString() == "Profile"))
+    { *@
+        <footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2024 - E_commerce - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>
+@*     } *@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

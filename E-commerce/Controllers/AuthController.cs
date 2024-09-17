@@ -20,6 +20,20 @@ namespace E_commerce.Controllers
         {
             return View();
         }
+        public async Task<IActionResult> Profile()
+        {
+            // Recupera l'utente autenticato
+            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var user = await _authSvc.GetUserByIdAsync(userId);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

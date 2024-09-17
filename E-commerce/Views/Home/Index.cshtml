@@ -14,6 +14,8 @@
 <div class="container">
     <div class="row">
         <h1 class="personal-title p-2">Categorie:</h1>
+        <!-- Search form -->
+
         @if (ViewBag.Categories != null)
         {
             <div class="d-flex flex-wrap gap-2 mb-3">
@@ -26,6 +28,12 @@
                     </div>
 
                 }
+                <div class="d-flex justify-content-start mb-2 align-items-center box">
+                    <form name="search" action="/Product/Search" method="get">
+                        <input type="text" class="input" name="query" onmouseout="this.value = ''; this.blur();">
+                    </form>
+                    <i class="bi bi-search"></i>
+                </div>
             </div>
         }
     </div>

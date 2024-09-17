@@ -1,0 +1,48 @@
+﻿@model E_commerce.Models.Auth.Users
+
+<div class="container-fluid video-bg">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-header bg-gradient bg-black">
+                    <h3 class="card-title text-center personal-title text-light">Profilo Utente</h3>
+                </div>
+                <div class="card-body mt-4">
+                    <div class="row mb-3">
+                        <div class="col-md-4 text-center">
+                            <img src="~/img/Modern Minimalist Graffiti Dream Brand Logo.png" class="rounded-circle img-fluid-personal border" alt="Immagine Profilo">
+                            <h4 class="mt-3 playpen-sans">@Model.FirstName @Model.LastName</h4>
+                            <p class="text-muted playpen-sans">ID Utente: @Model.IdUser</p>
+                        </div>
+                        <div class="col-md-8">
+                            <dl class="row">
+                                <dt class="col-sm-4 playpen-sans">Email:</dt>
+                                <dd class="col-sm-8 playpen-sans">@Model.Email</dd>
+
+                                <dt class="col-sm-4 playpen-sans">Data di nascita:</dt>
+                                <dd class="col-sm-8 playpen-sans">@Model.BirthDate.ToString("dd/MM/yyyy")</dd>
+
+                                <dt class="col-sm-4 playpen-sans">Telefono:</dt>
+                                <dd class="col-sm-8 playpen-sans">@Model.PhoneNumber</dd>
+
+                                <dt class="col-sm-4 playpen-sans">Genere:</dt>
+                                <dd class="col-sm-8 playpen-sans">@Model.Gender</dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <!-- Pulsanti per modifica o altre azioni -->
+                    <div class="text-center">
+                        <a asp-controller="Auth" asp-action="EditProfile" class="button-56 playpen-sans">Modifica Profilo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Video di sfondo -->
+<video autoplay muted loop id="backgroundVideo">
+    <source src="~/videos/STREETWEAR AD (720p, h264, youtube).mp4" type="video/mp4">
+    Il tuo browser non supporta il video tag.
+</video>
