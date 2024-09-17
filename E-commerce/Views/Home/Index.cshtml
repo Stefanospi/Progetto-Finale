@@ -2,8 +2,9 @@
 
 @{
     ViewData["Title"] = "Home Page";
+    var pr = Model.FirstOrDefault();
 }
-<div class="row justify-content-center">
+<div class="row justify-content-center bg-black p-4">
     <div class="col-12 mt-2 mb-4">
         <video class="w-100" autoplay muted loop>
             <source src="~/videos/STREETWEAR AD (720p, h264, youtube).mp4" type="video/mp4">
@@ -11,14 +12,51 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container-fluid p-0 m-0">
     <div class="row">
-        <h1 class="personal-title p-2">Categorie:</h1>
+        <!-- Immagine del prodotto principale -->
+        <div class="col-md-4">
+            <img src="~/img/DSC_8801edit2.png" alt="Product Image" class="img-fluid img-featured">
+        </div>
+        <div class="col-md-8">
+            @if (pr != null)
+            {
+                <a href="@Url.Action("Details", "Product", new { id = pr.ProductId })" class="text-decoration-none">
+                    <div class="product-card text-center p-3" style="border: none; border-radius: 20px;">
+                        <div class="position-relative">
+                            <!-- Immagine del prodotto -->
+                            @if (pr.Image != null && pr.Image.Length > 0)
+                            {
+                                <img class="img-personal" src="data:image/png;base64,@Convert.ToBase64String(pr.Image)" alt="@pr.Name" />
+                            }
+                            else
+                            {
+                                <span class="text-muted">Nessuna immagine</span>
+                            }
+
+                            <!-- Badge "NEW" in alto a sinistra -->
+                            <span class="badge badge-new position-absolute top-0 start-0 m-2">NEU</span>
+
+                            <!-- Prezzo in basso a sinistra -->
+                            <span class="badge price-badge position-absolute bottom-0 start-0 m-2">@pr.Price.ToString("C")</span>
+                        </div>
+                    </div>
+                </a>
+                <div class="mt-1 text-center">
+                    <h5 class="card-title-personal mt-2 text-truncate">@pr.Name</h5>
+                    <p class="card-text-personal text-muted">@DateTime.Now.ToString("Sa. dd. MMM. yyyy - HH:mm")</p>
+                </div>
+                }
+            
+        </div>
+
+        <div class="container mt-4 p-3 personal-border">
+        <h1 class="personal-title p-2 text-center">Categorie</h1>
         <!-- Search form -->
 
         @if (ViewBag.Categories != null)
         {
-            <div class="d-flex flex-wrap gap-2 mb-3">
+            <div class="d-flex flex-wrap gap-2 mb-3 justify-content-center">
                 @foreach (var category in ViewBag.Categories)
                 {
                     <div class="col-auto mb-2">
@@ -36,10 +74,13 @@
                 </div>
             </div>
         }
+        </div>
     </div>
 
 
-    <div class="row bg-personal p-4">
+    <div class="row p-4">
+        <h1 class="personal-title text-center">Shop</h1>
+
         <!-- Prodotti visibili (primi 4 prodotti) -->
         @foreach (var product in Model.Take(4))
         {

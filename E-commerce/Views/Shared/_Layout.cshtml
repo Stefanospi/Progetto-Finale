@@ -15,7 +15,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid justify-content-between">
                 <!-- Left elements -->
                 <div class="d-flex">
@@ -87,18 +87,34 @@
             </div>
         </nav>
     </header>
-    <div class="container-fluid">
+    <div class="container-fluid navbar-bg">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 @*     @if (!(ViewContext.RouteData.Values["controller"].ToString() == "Auth" && ViewContext.RouteData.Values["action"].ToString() == "Profile"))
     { *@
-        <footer class="border-top footer text-muted">
-            <div class="container">
-                &copy; 2024 - E_commerce - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </div>
-        </footer>
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-1 border-top">
+        <div class="col-md-4 d-flex align-items-center">
+            <a class="navbar-brand me-2" asp-controller="Home" asp-action="Index">
+                <img src="~/img/Modern Minimalist Graffiti Dream Brand Logo.png"
+                     alt="Brand Logo"
+                     loading="lazy"
+                     style="width: 125px; height:85px;" />
+            </a>
+            <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Company, Inc</span>
+        </div>
+
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+            <li class="me-3 me-lg-1 active">
+                <a class="text-decoration-none" asp-controller="Home" asp-action="Index">
+                    <span><i class="bi bi-house fa-lg"></i></span>
+                </a>
+            </li>
+            <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
+            <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
+        </ul>
+    </footer>
 @*     } *@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

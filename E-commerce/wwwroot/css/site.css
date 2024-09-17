@@ -386,3 +386,8 @@ hr {
     z-index: -1; /* Posizioniamo il video dietro gli altri contenuti */
     object-fit: cover; /* Il video copre l'intero schermo mantenendo le proporzioni */
 }
+
+/* Bordi per sezione categorie */
+.personal-border {
+    border: 1px solid #cecece;
+}
