@@ -16,41 +16,32 @@
     <div class="row">
         <!-- Immagine del prodotto principale -->
         <div class="col-md-4">
-            <img src="~/img/DSC_8801edit2.png" alt="Product Image" class="img-fluid img-featured">
+            <img src="~/img/index img.jpeg" alt="Product Image" class="img-fluid img-featured img-height-personal">
         </div>
         <div class="col-md-8">
-            @if (pr != null)
-            {
-                <a href="@Url.Action("Details", "Product", new { id = pr.ProductId })" class="text-decoration-none">
-                    <div class="product-card text-center p-3" style="border: none; border-radius: 20px;">
-                        <div class="position-relative">
-                            <!-- Immagine del prodotto -->
-                            @if (pr.Image != null && pr.Image.Length > 0)
-                            {
-                                <img class="img-personal" src="data:image/png;base64,@Convert.ToBase64String(pr.Image)" alt="@pr.Name" />
-                            }
-                            else
-                            {
-                                <span class="text-muted">Nessuna immagine</span>
-                            }
+            <!-- Breve descrizione sullo streetwear -->
+            <div class="streetwear-description-personal border mb-2">
+                <h2 class="streetwear-title-personal personal-title text-center">Cos'è lo Streetwear?</h2>
+                <p class="streetwear-text-personal playpen-sans">
+                    Lo streetwear è uno stile di abbigliamento casual che è emerso dalla cultura urbana,
+                    in particolare influenzato dalla moda giovanile delle strade delle grandi città.
+                    Con radici nello skateboard, nell'hip-hop e nella cultura dei graffiti,
+                    lo streetwear è diventato un simbolo di ribellione e di espressione personale.
+                    È caratterizzato da capi comodi, come felpe con cappuccio, t-shirt grafiche,
+                    sneakers alla moda e accessori audaci. Oggi, lo streetwear è un'industria di miliardi di dollari,
+                    con marchi di lusso che adottano questo stile iconico per definire la moda contemporanea.
+                </p>
+            </div>
 
-                            <!-- Badge "NEW" in alto a sinistra -->
-                            <span class="badge badge-new position-absolute top-0 start-0 m-2">NEU</span>
-
-                            <!-- Prezzo in basso a sinistra -->
-                            <span class="badge price-badge position-absolute bottom-0 start-0 m-2">@pr.Price.ToString("C")</span>
-                        </div>
+            <div id="streetwearCarousel" class="carousel slide" data-bs-ride="carousel" >
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="~/img/download.png" class="d-block w-100" alt="Immagine streetwear">
                     </div>
-                </a>
-                <div class="mt-1 text-center">
-                    <h5 class="card-title-personal mt-2 text-truncate">@pr.Name</h5>
-                    <p class="card-text-personal text-muted">@DateTime.Now.ToString("Sa. dd. MMM. yyyy - HH:mm")</p>
                 </div>
-                }
-            
+            </div>
         </div>
-
-        <div class="container mt-4 p-3 personal-border">
+            <div class="container mt-4 p-3 personal-border">
         <h1 class="personal-title p-2 text-center">Categorie</h1>
         <!-- Search form -->
 
@@ -79,7 +70,7 @@
 
 
     <div class="row p-4">
-        <h1 class="personal-title text-center">Shop</h1>
+        <h1 class="personal-title text-center mb-3">Shop</h1>
 
         <!-- Prodotti visibili (primi 4 prodotti) -->
         @foreach (var product in Model.Take(4))

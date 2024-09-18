@@ -391,3 +391,57 @@ hr {
 .personal-border {
     border: 1px solid #cecece;
 }
+
+/*Bg di tutta la pagina*/
+.body-bg {
+    background-color: #F4F4F4;
+}
+
+/* Stile per l'input-personal */
+.input-personal {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 0.375rem 0.75rem;
+    transition: border-color 0.3s ease-in-out;
+}
+
+    .input-personal:focus {
+        outline: none;
+        border-color: black; /* Bordi neri quando l'input è in focus (al click) */
+        box-shadow: none; /* Rimuove l'effetto shadow blu di default */
+    }
+
+/* Stile per la sezione descrizione streetwear */
+.streetwear-description-personal {
+    padding: 20px;
+}
+
+/* Titolo della descrizione */
+.streetwear-title-personal {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Paragrafo della descrizione */
+.streetwear-text-personal {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #666;
+}
+
+/* Personalizzazione dell'altezza del carosello */
+#streetwearCarousel img {
+    height: 300px; /* Altezza fissa */
+    object-fit: cover; /* Adatta l'immagine mantenendo la proporzione */
+}
+
+/* Img h*/
+.img-height-personal {
+    height: 581px;
+    width: 100%; /* Imposta la larghezza al 100% del contenitore */
+    object-fit: cover; /* Assicura che l'immagine si adatti al contenitore senza deformarsi */
+    object-position: center; /* Centra l'immagine all'interno del contenitore */
+}
+

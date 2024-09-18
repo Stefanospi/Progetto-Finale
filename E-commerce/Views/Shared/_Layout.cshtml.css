@@ -45,18 +45,4 @@ button.accept-policy {
     transform: translate(50%, -50%);
 }
 
-/* Stile per il badge in alto a destra dell'icona */
-.position-relative {
-    position: relative;
-}
 
-.position-absolute {
-    position: absolute;
-    top: -10px; /* Sposta il badge verso l'alto */
-    right: -10px; /* Sposta il badge verso destra */
-    transform: translate(-50%, -50%);
-}
-
-.navbar-bg {
-    background-color: #C2C2C2;
-}
