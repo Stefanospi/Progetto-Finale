@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<E_commerce.Models.ProductCart.CartItems>
 
-<div class="container mt-5">
+<div class="container-fluid body-bg mt-5">
+    <!-- Aggiunta la classe body-bg -->
     <h2 class="mb-4 personal-title">Carrello (@Model.Count() articoli)</h2>
 
     @if (Model.Any())
@@ -25,22 +26,19 @@
                     <h5 class="playpen-sans">@item.Product.Name</h5>
                     <p class="playpen-sans">@item.Product.Description</p>
                     <p class="playpen-sans"><strong>Prezzo:</strong> @item.Product.Price.ToString("C")</p>
-                    <p class="playpen-sans"><strong>Taglia:</strong> @item.Product.Sizes</p> <!-- Puoi aggiungere la gestione della taglia -->
+                    <p class="playpen-sans"><strong>Taglia:</strong> @item.Product.Sizes</p>
                 </div>
-
-
 
                 <!-- Rimuovi elemento -->
                 <div class="col-md-1 text-end">
                     <form asp-action="RemoveFromCart" method="post">
                         <input type="hidden" name="cartItemId" value="@item.CartItemId" />
                         <button type="submit" class="btn btn-link text-danger">
-                            <i class="bi bi-x-lg"></i> <!-- Icona di rimozione -->
+                            <i class="bi bi-x-lg"></i>
                         </button>
                     </form>
                 </div>
             </div>
-
         }
 
         <!-- Totale generale -->
