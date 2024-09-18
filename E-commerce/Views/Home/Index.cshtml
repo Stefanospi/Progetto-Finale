@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-8">
             <!-- Breve descrizione sullo streetwear -->
-            <div class="streetwear-description-personal border mb-2">
+            <div class="streetwear-description-personal mb-2">
                 <h2 class="streetwear-title-personal personal-title text-center">Cos'è lo Streetwear?</h2>
                 <p class="streetwear-text-personal playpen-sans">
                     Lo streetwear è uno stile di abbigliamento casual che è emerso dalla cultura urbana,
@@ -47,7 +47,7 @@
 
         @if (ViewBag.Categories != null)
         {
-            <div class="d-flex flex-wrap gap-2 mb-3 justify-content-center">
+            <div class="d-flex flex-wrap gap-2 mb-2 justify-content-center">
                 @foreach (var category in ViewBag.Categories)
                 {
                     <div class="col-auto mb-2">
@@ -70,12 +70,12 @@
 
 
     <div class="row p-4">
-        <h1 class="personal-title text-center mb-3">Shop</h1>
+        <h1 class="personal-title text-center mb-5">Shop</h1>
 
         <!-- Prodotti visibili (primi 4 prodotti) -->
         @foreach (var product in Model.Take(4))
         {
-            <div class="col-md-4 col-sm-6 col-lg-3 mb-4">
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-2">
                 <a href="@Url.Action("Details", "Product", new { id = product.ProductId })" class="text-decoration-none">
                     <div class="product-card text-center p-3" style="border: none; border-radius: 20px;">
                         <div class="position-relative">
@@ -107,7 +107,7 @@
         <!-- Prodotti nascosti (verranno mostrati al click del pulsante) -->
         @foreach (var product in Model.Skip(4))
         {
-            <div class="col-md-4 col-sm-6 col-lg-3 mb-4 hidden-product" style="display:none;">
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-2 hidden-product" style="display:none;">
                 <a href="@Url.Action("Details", "Product", new { id = product.ProductId })" class="text-decoration-none">
                     <div class="product-card text-center p-3" style="border: none; border-radius: 20px;">
                         <div class="position-relative">

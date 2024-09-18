@@ -5,61 +5,73 @@
     ViewData["Title"] = "Modifica profilo";
 }
 
-<h2>Modifica Profilo</h2>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-header bg-gradient bg-black">
+                    <h3 class="card-title text-center personal-title text-light">Modifica Profilo</h3>
+                </div>
+                <div class="card-body mt-4">
+                    <form asp-action="EditProfile" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-<form asp-action="EditProfile" method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="IdUser" />
 
-    <input type="hidden" asp-for="IdUser" />
+                        <div class="form-group mb-3">
+                            <label asp-for="FirstName" class="control-label playpen-sans">Nome:</label>
+                            <input asp-for="FirstName" class="form-control input-personal playpen-sans" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
 
-    <div class="form-group">
-        <label asp-for="FirstName" class="control-label">Nome:</label>
-        <input asp-for="FirstName" class="form-control" />
-        <span asp-validation-for="FirstName" class="text-danger"></span>
+                        <div class="form-group mb-3">
+                            <label asp-for="LastName" class="control-label playpen-sans">Cognome:</label>
+                            <input asp-for="LastName" class="form-control input-personal playpen-sans" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Email" class="control-label playpen-sans">Email:</label>
+                            <input asp-for="Email" class="form-control input-personal playpen-sans" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Username" class="control-label playpen-sans">Username:</label>
+                            <input asp-for="Username" class="form-control input-personal playpen-sans" readonly />
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="NewPassword" class="control-label playpen-sans">Nuova Password:</label>
+                            <input asp-for="NewPassword" type="password" class="form-control input-personal playpen-sans" />
+                            <span asp-validation-for="NewPassword" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="BirthDate" class="control-label playpen-sans">Data di Nascita:</label>
+                            <input asp-for="BirthDate" type="date" class="form-control input-personal playpen-sans" />
+                            <span asp-validation-for="BirthDate" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Gender" class="control-label playpen-sans">Genere:</label>
+                            <select asp-for="Gender" class="form-control input-personal playpen-sans" asp-items="Html.GetEnumSelectList<Gender>()"></select>
+                            <span asp-validation-for="Gender" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="PhoneNumber" class="control-label playpen-sans">Numero di Telefono:</label>
+                            <input asp-for="PhoneNumber" class="form-control input-personal playpen-sans" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="button-56 playpen-sans">Salva</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label asp-for="LastName" class="control-label">Cognome:</label>
-        <input asp-for="LastName" class="form-control" />
-        <span asp-validation-for="LastName" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Email" class="control-label">Email:</label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Username" class="control-label"></label>
-        <input asp-for="Username" class="form-control" readonly />
-        <span asp-validation-for="Username" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="NewPassword" class="control-label">Nuova Password:</label>
-        <input asp-for="NewPassword" type="password" class="form-control" />
-        <span asp-validation-for="NewPassword" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="BirthDate" class="control-label">Data di Nascita:</label>
-        <input asp-for="BirthDate" class="form-control" />
-        <span asp-validation-for="BirthDate" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Gender" class="control-label">Genere:</label>
-        <select class="form-control" asp-items="Html.GetEnumSelectList<Gender>()"></select>
-        <span asp-validation-for="Gender" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="PhoneNumber" class="control-label">Numero di Telefono:</label>
-        <input asp-for="PhoneNumber" class="form-control" />
-        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Salva</button>
-    </div>
-</form>
+</div>
