@@ -6,56 +6,67 @@
     var categories = ViewBag.Categories as List<Categories>;
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-header bg-gradient bg-black">
+                    <h3 class="card-title text-center personal-title text-light">Modifica Prodotto</h3>
+                </div>
+                <div class="card-body mt-4">
+                    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-<form asp-action="Edit" method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="ProductId" />
 
-    <input type="hidden" asp-for="ProductId" />
+                        <div class="form-group mb-3">
+                            <label asp-for="Name" class="control-label playpen-sans">Nome Prodotto:</label>
+                            <input asp-for="Name" class="form-control input-personal playpen-sans" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
 
-    <div class="form-group">
-        <label asp-for="Name" class="control-label">Nome Prodotto:</label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+                        <div class="form-group mb-3">
+                            <label asp-for="Description" class="control-label playpen-sans">Descrizione:</label>
+                            <textarea asp-for="Description" class="form-control input-personal playpen-sans"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Price" class="control-label playpen-sans">Prezzo:</label>
+                            <input asp-for="Price" class="form-control input-personal playpen-sans" />
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="CategoryId" class="control-label playpen-sans">Categoria Prodotto:</label>
+                            <select asp-for="CategoryId" class="form-control input-personal playpen-sans">
+                                <option value="" selected disabled>Seleziona la categoria</option>
+                                @foreach (var ct in categories)
+                                {
+                                    <option value="@ct.CategoryId">@ct.CategoryName</option>
+                                }
+                            </select>
+                            <span asp-validation-for="CategoryId" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Image" class="control-label playpen-sans">Inserisci una nuova immagine:</label>
+                            <input asp-for="Image" type="file" class="form-control input-personal playpen-sans" />
+                            <span asp-validation-for="Image" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="Sizes" class="control-label playpen-sans">Taglie disponibili (separate da virgole):</label>
+                            <input type="text" name="Sizes" class="form-control input-personal playpen-sans" placeholder="Esempio: S,M,L,XL" />
+                            <span asp-validation-for="Sizes" class="text-danger"></span>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="button-56 playpen-sans">Salva</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label asp-for="Description" class="control-label">Descrizione:</label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Price" class="control-label">Prezzo:</label>
-        <input asp-for="Price" class="form-control" />
-        <span asp-validation-for="Price" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="CategoryId" class="control-label">Inserisci la categoria prodotto:</label>
-        <select asp-for="CategoryId" class="form-control">
-            <option value="" selected disabled>Seleziona la categoria</option>
-            @foreach (var ct in categories)
-            {
-                <option value="@ct.CategoryId">@ct.CategoryName</option>
-            }
-        </select>
-        <span asp-validation-for="CategoryId" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Image" class="control-label">Inserisci una nuova immagine:</label>
-        <input asp-for="Image" type="file" class="form-control" />
-        <span asp-validation-for="Image" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label for="Sizes" class="control-label">Taglie disponibili (separate da virgole):</label>
-        <input type="text" name="Sizes" class="form-control" placeholder="Esempio: S,M,L,XL" />
-        <span asp-validation-for="Sizes" class="text-danger"></span>
-    </div>
-
-
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Salva</button>
-    </div>
-</form>
+</div>
