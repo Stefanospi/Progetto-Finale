@@ -101,6 +101,7 @@ namespace E_commerce.Controllers
         }
 
         // Visualizza il modulo per modificare il profilo
+        [Authorize]
         public async Task<IActionResult> EditProfile()
         {
             // Recupera l'utente autenticato

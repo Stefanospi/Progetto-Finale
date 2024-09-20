@@ -59,6 +59,7 @@ namespace E_commerce.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddAddress(Addresses address)
         {
             if (User.Identity.IsAuthenticated)
@@ -113,6 +114,7 @@ namespace E_commerce.Controllers
 
         // Passaggio 2: Creazione dell'ordine prima del pagamento
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateOrder(int addressId)
         {
             int? userId = null;

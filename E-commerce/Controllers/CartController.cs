@@ -51,6 +51,7 @@ namespace E_commerce.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddToCart(int productId, int quantity)
         {
             var userId = User.Identity.IsAuthenticated
@@ -93,6 +94,7 @@ namespace E_commerce.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemoveFromCart(int cartItemId)
         {
             await _cartService.RemoveFromCartAsync(cartItemId);
@@ -104,6 +106,7 @@ namespace E_commerce.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ClearCart(int cartId)
         {
             await _cartService.ClearCartAsync(cartId);

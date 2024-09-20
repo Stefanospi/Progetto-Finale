@@ -1,6 +1,7 @@
 ﻿using E_commerce.Models.AllProduct;
 using E_commerce.Services.Helper;
 using E_commerce.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,7 +24,7 @@ namespace E_commerce.Controllers
             ViewBag.Categories = await _categoriesService.GetCategoriesAsync();
             return View();
         }
-
+        [Authorize(Roles ="admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Products products,IFormFile image)
@@ -47,7 +48,7 @@ namespace E_commerce.Controllers
             return View(product);
         }
 
-        // Metodo per gestire l'aggiornamento del prodotto
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Products product,IFormFile image)
@@ -58,7 +59,9 @@ namespace E_commerce.Controllers
             
 
         }
+        [Authorize(Roles = "admin")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
             await _productService.DeleteProductAsync(id);
