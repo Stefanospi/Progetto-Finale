@@ -40,13 +40,16 @@
                     </li>
 
                     <li class="nav-item me-3 me-lg-1">
-                        <a class="nav-link position-relative" asp-controller="Cart" asp-action="CartProduct">
-                            <i class="bi bi-cart fa-lg"></i>
-                            <!-- Badge -->
-                            @await Html.PartialAsync("_CartItemCountPartial", (int?)ViewBag.CartItemCount ?? 0)
-                        </a>
-                    </li>
-                    @if (User.IsInRole("admin"))
+                        @if (!(ViewContext.RouteData.Values["Controller"].ToString() == "Auth" && (ViewContext.RouteData.Values["Action"].ToString() == "Login" || ViewContext.RouteData.Values["Action"].ToString() == "Register"))
+                        && !(ViewContext.RouteData.Values["Controller"].ToString() == "Product" && (ViewContext.RouteData.Values["Action"].ToString() == "Create" || ViewContext.RouteData.Values["Action"].ToString() == "Edit")))
+           {
+                            <a class="nav-link position-relative" asp-controller="Cart" asp-action="CartProduct">
+                                <i class="bi bi-cart fa-lg"></i>
+                                <!-- Badge -->
+                                @await Html.PartialAsync("_CartItemCountPartial", (int?)ViewBag.CartItemCount ?? 0)
+                            </a>
+                        }
+                    </li>                    @if (User.IsInRole("admin"))
                     {
                         <li class="nav-item me-3 me-lg-1">
                             <a class="nav-link" asp-controller="Product" asp-action="Create">

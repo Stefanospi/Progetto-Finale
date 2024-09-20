@@ -1,4 +1,5 @@
 using E_commerce.Models;
+using E_commerce.Services.Helper;
 using E_commerce.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -11,13 +12,13 @@ namespace E_commerce.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IProductService _productService;
         private readonly ICategoriesService _categoriesService;
-        private readonly ICartService _cartService;
+        private readonly CartHelper _cartHelper;
 
-        public HomeController(ILogger<HomeController> logger, IProductService productService, ICategoriesService categoriesService, ICartService cartService)
+        public HomeController(ILogger<HomeController> logger, IProductService productService, ICategoriesService categoriesService, CartHelper cartHelper)
         {
             _categoriesService = categoriesService;
             _productService = productService;
-            _cartService = cartService;
+            _cartHelper = cartHelper;
             _logger = logger;
         }
 
@@ -28,8 +29,8 @@ namespace E_commerce.Controllers
 
             ViewBag.Categories = categories;
 
-            // Imposta il conteggio degli articoli nel carrello
-            await SetCartItemCountAsync();
+            // Aggiorna il conteggio degli articoli nel carrello
+            ViewBag.CartItemCount = await _cartHelper.GetCartItemCountAsync(User);
 
             return View(products);
         }
@@ -42,32 +43,12 @@ namespace E_commerce.Controllers
 
             ViewBag.Categories = categories;
 
-            // Imposta il conteggio degli articoli nel carrello
-            await SetCartItemCountAsync();
+            // Aggiorna il conteggio degli articoli nel carrello
+            ViewBag.CartItemCount = await _cartHelper.GetCartItemCountAsync(User);
 
             return View("Index", products);
         }
 
-        private async Task SetCartItemCountAsync()
-        {
-            int itemCount = 0;
-
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-                itemCount = await _cartService.GetCartItemCountAsync(userId);
-            }
-            else
-            {
-                var sessionId = Request.Cookies["SessionId"];
-                if (sessionId != null)
-                {
-                    itemCount = await _cartService.GetCartItemCountBySessionAsync(sessionId);
-                }
-            }
-
-            ViewBag.CartItemCount = itemCount;
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

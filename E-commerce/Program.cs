@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Stripe;
+using E_commerce.Services.Helper;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -56,7 +57,10 @@ builder.Services
     .AddScoped<ICartService, CartService>()
     .AddScoped<IAddressService, AddressService>()
     .AddScoped<IOrderService,OrderService>()
-    .AddScoped<IStripePaymentService,StripePaymentService>();
+    .AddScoped<IStripePaymentService,StripePaymentService>()
+    .AddScoped<CartHelper>();
+
+builder.Services.AddHttpContextAccessor();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

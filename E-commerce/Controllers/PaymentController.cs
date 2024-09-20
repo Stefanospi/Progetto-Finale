@@ -1,21 +1,21 @@
 ﻿
+using E_commerce.Services.Helper;
 using E_commerce.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Stripe;
-using Stripe.Checkout;
 
 public class PaymentController : Controller
 {
     private readonly IOrderService _orderService;
     private readonly ICartService _cartService;
     private readonly IStripePaymentService _stripePaymentService;
+    private readonly CartHelper _cartHelper;
 
-    public PaymentController(IOrderService orderService, ICartService cartService, IStripePaymentService stripePaymentService)
+    public PaymentController(IOrderService orderService, ICartService cartService, IStripePaymentService stripePaymentService,CartHelper cartHelper)
     {
         _orderService = orderService;
         _cartService = cartService;
         _stripePaymentService = stripePaymentService;
+        _cartHelper = cartHelper;
     }
 
     [HttpGet]
@@ -75,8 +75,10 @@ public class PaymentController : Controller
         // Passa l'ordine alla vista per mostrarlo
         return View(order);
     }
-    public IActionResult Cancel()
+    public async Task<IActionResult> Cancel()
     {
+        // Usa CartHelper per aggiornare il conteggio degli articoli nel carrello dopo la rimozione
+        ViewBag.CartItemCount = await _cartHelper.GetCartItemCountAsync(User);
         // Mostra una pagina di pagamento annullato
         return View();
     }

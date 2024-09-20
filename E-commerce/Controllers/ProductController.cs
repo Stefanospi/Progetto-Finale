@@ -1,4 +1,5 @@
 ﻿using E_commerce.Models.AllProduct;
+using E_commerce.Services.Helper;
 using E_commerce.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,12 +10,14 @@ namespace E_commerce.Controllers
     {
         private readonly IProductService _productService;
         private readonly ICategoriesService _categoriesService;
-        public ProductController(IProductService productService, ICategoriesService categoriesService)
+        private readonly CartHelper _cartHelper;  // Aggiungi CartHelper
+
+        public ProductController(IProductService productService, ICategoriesService categoriesService, CartHelper cartHelper)
         {
             _categoriesService = categoriesService;
             _productService = productService;
+            _cartHelper = cartHelper;  // Inizializza CartHelper
         }
-
         public async Task<IActionResult> Create()
         {
             ViewBag.Categories = await _categoriesService.GetCategoriesAsync();
@@ -67,11 +70,13 @@ namespace E_commerce.Controllers
             var product = await _productService.GetProductsById(id);
             ViewBag.Categories = await _categoriesService.GetCategoriesAsync();
 
-
             if (product == null)
             {
                 return NotFound();
             }
+
+            // Usa CartHelper per aggiornare il conteggio degli articoli nel carrello
+            ViewBag.CartItemCount = await _cartHelper.GetCartItemCountAsync(User);
 
             return View(product);
         }
@@ -79,9 +84,11 @@ namespace E_commerce.Controllers
         {
             var filteredProducts = await _productService.SearchProducts(query);
             ViewBag.Categories = await _categoriesService.GetCategoriesAsync();
+
+            // Usa CartHelper per aggiornare il conteggio degli articoli nel carrello
+            ViewBag.CartItemCount = await _cartHelper.GetCartItemCountAsync(User);
+
             return View("/Views/Home/Index.cshtml", filteredProducts);
-
         }
-
     }
 }

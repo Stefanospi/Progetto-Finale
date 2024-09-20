@@ -1,22 +1,43 @@
 ﻿@model IEnumerable<E_commerce.Models.Auth.Addresses>
 
-<h2>Seleziona un indirizzo di spedizione</h2>
+@{
+    ViewData["Title"] = "Seleziona un indirizzo di spedizione";
+}
 
-<form asp-action="CreateOrder" method="post">
-    <div class="form-group">
-        <label for="address">Indirizzo di spedizione:</label>
-        <select id="address" name="addressId" class="form-control" required>
-            @foreach (var address in Model)
-            {
-                <option value="@address.IdAddress">
-                    @address.AddressLine1, @address.City, @address.State, @address.PostalCode, @address.Country
-                </option>
-            }
-        </select>
+<div class="container-fluid vh-100">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-header bg-gradient bg-black">
+                    <h3 class="card-title text-center personal-title text-light">Seleziona un Indirizzo di Spedizione</h3>
+                </div>
+                <div class="card-body mt-4">
+                    <form asp-action="CreateOrder" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group mb-3">
+                            <label for="address" class="control-label playpen-sans">Indirizzo di spedizione:</label>
+                            <select id="address" name="addressId" class="form-control input-personal playpen-sans" required>
+                                @foreach (var address in Model)
+                                {
+                                    <option value="@address.IdAddress">
+                                        @address.AddressLine1, @address.City, @address.State, @address.PostalCode, @address.Country
+                                    </option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="button-56 playpen-sans">Procedi con l'ordine</button>
+                        </div>
+                    </form>
+
+                    <!-- Pulsante per aggiungere un nuovo indirizzo -->
+                    <div class="text-center mt-3">
+                        <a href="@Url.Action("AddAddress", "Checkout", new { forceAdd = true })" class="button-56 playpen-sans">Aggiungi nuovo indirizzo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <button type="submit" class="btn btn-primary">Procedi con l'ordine</button>
-</form>
-
-<!-- Pulsante per aggiungere un nuovo indirizzo -->
-<a href="@Url.Action("AddAddress", "Checkout", new { forceAdd = true })" class="btn btn-secondary">Aggiungi nuovo indirizzo</a>
+</div>

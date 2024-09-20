@@ -1,4 +1,5 @@
 ﻿using E_commerce.Models.ProductCart;
+using E_commerce.Services.Helper;
 using E_commerce.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -9,16 +10,19 @@ namespace E_commerce.Controllers
     {
         private readonly ICartService _cartService;
         private readonly IAuthService _authService;
+        private readonly CartHelper _cartHelper;
 
-        public CartController(ICartService cartService, IAuthService authService)
+        public CartController(ICartService cartService, IAuthService authService, CartHelper cartHelper)
         {
             _cartService = cartService;
             _authService = authService;
+            _cartHelper = cartHelper;
         }
 
         public async Task<IActionResult> GetCartItemCount()
         {
-            await UpdateCartItemCount();
+            // Usa CartHelper per aggiornare il conteggio degli articoli nel carrello
+            ViewBag.CartItemCount = await _cartHelper.GetCartItemCountAsync(User);
             return PartialView("_CartItemCountPartial", ViewBag.CartItemCount);
         }
 
@@ -40,8 +44,8 @@ namespace E_commerce.Controllers
                 }
             }
 
-            // Aggiorna il conteggio degli articoli nel carrello
-            await UpdateCartItemCount();
+            // Usa CartHelper per aggiornare il conteggio degli articoli nel carrello
+            ViewBag.CartItemCount = await _cartHelper.GetCartItemCountAsync(User);
 
             return View(cart?.CartItems ?? new List<CartItems>());
         }
@@ -82,8 +86,8 @@ namespace E_commerce.Controllers
                 }
             }
 
-            // Aggiorna il conteggio degli articoli nel carrello dopo l'aggiunta
-            await UpdateCartItemCount();
+            // Usa CartHelper per aggiornare il conteggio degli articoli nel carrello dopo l'aggiunta
+            ViewBag.CartItemCount = await _cartHelper.GetCartItemCountAsync(User);
 
             return RedirectToAction("CartProduct");
         }
@@ -93,8 +97,8 @@ namespace E_commerce.Controllers
         {
             await _cartService.RemoveFromCartAsync(cartItemId);
 
-            // Aggiorna il conteggio degli articoli nel carrello dopo la rimozione
-            await UpdateCartItemCount();
+            // Usa CartHelper per aggiornare il conteggio degli articoli nel carrello dopo la rimozione
+            ViewBag.CartItemCount = await _cartHelper.GetCartItemCountAsync(User);
 
             return RedirectToAction("CartProduct");
         }
@@ -104,31 +108,10 @@ namespace E_commerce.Controllers
         {
             await _cartService.ClearCartAsync(cartId);
 
-            // Aggiorna il conteggio degli articoli nel carrello dopo la pulizia
-            await UpdateCartItemCount();
+            // Usa CartHelper per aggiornare il conteggio degli articoli nel carrello dopo la pulizia
+            ViewBag.CartItemCount = await _cartHelper.GetCartItemCountAsync(User);
 
             return RedirectToAction("CartProduct");
-        }
-
-        private async Task UpdateCartItemCount()
-        {
-            int itemCount = 0;
-
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-                itemCount = await _cartService.GetCartItemCountAsync(userId);
-            }
-            else
-            {
-                var sessionId = Request.Cookies["SessionId"];
-                if (sessionId != null)
-                {
-                    itemCount = await _cartService.GetCartItemCountBySessionAsync(sessionId);
-                }
-            }
-
-            ViewBag.CartItemCount = itemCount;
         }
     }
 }

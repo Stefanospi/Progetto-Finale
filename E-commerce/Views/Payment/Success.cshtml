@@ -3,5 +3,28 @@
 *@
 @{
 }
+<style>
+    body{
+        height:auto;
+        background-color: #F4F4F4;
+    }
+</style>
+<div class="container-fluid d-flex justify-content-center align-items-center">
+    <div class="col-md-6">
+        <div class="card shadow-lg">
+            <div class="card-header bg-gradient bg-black">
+                <h3 class="card-title text-center personal-title text-light">Pagamento Riuscito</h3>
+            </div>
+            <div class="card-body mt-4">
+                <p class="playpen-sans text-center mb-4">
+                    Il tuo pagamento è stato completato con successo! Grazie per il tuo acquisto. Riceverai presto una conferma via email.
+                </p>
 
-<p>Pagamento riuscito!</p>
+                <!-- Bottone per tornare al negozio -->
+                <div class="text-center">
+                    <a href="@Url.Action("Index", "Home")" class="button-55 playpen-sans">Torna al Negozio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
