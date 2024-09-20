@@ -23,8 +23,6 @@ namespace E_commerce.Services
                     products.Image = ms.ToArray();
                 }
             }
-
-            // Salvataggio prodotto
             _ctx.Products.Add(products);
             await _ctx.SaveChangesAsync();
             return products;
@@ -32,6 +30,10 @@ namespace E_commerce.Services
         public async Task<Products> DeleteProductAsync(int id)
         {
             var product = await _ctx.Products.FindAsync(id);
+            if (product == null)
+            {
+                throw new ArgumentException("Il prodotto non esiste.");
+            }
             _ctx.Products.Remove(product);
             await _ctx.SaveChangesAsync();
             return product;
@@ -54,11 +56,9 @@ namespace E_commerce.Services
         //Recupera il prodotto con quel singolo id
         public async Task<Products> GetProductsById(int id)
         {
-            return await _ctx.Products
-                .Include(p=> p.Category)
-                .FirstOrDefaultAsync(p=>p.ProductId==id);
+            return await _ctx.Products.Include(p => p.Category).FirstOrDefaultAsync(p => p.ProductId == id)
+                   ?? throw new ArgumentException("Il prodotto non esiste.");
         }
-
         public async Task<Products> UpdateProductsAsync(Products products, IFormFile imageFile)
         {
             var product = await _ctx.Products.FindAsync(products.ProductId);

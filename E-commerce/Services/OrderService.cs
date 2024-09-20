@@ -12,12 +12,13 @@ namespace E_commerce.Services
         {
             _dataContext = dataContext;
         }
-        public async Task CreateOrderAsync(Orders orders)
+        public async Task CreateOrderAsync(Orders order)
         {
-            _dataContext.Orders.Add(orders);
+            if (order == null) throw new ArgumentNullException(nameof(order));
+
+            _dataContext.Orders.Add(order);
             await _dataContext.SaveChangesAsync();
         }
-
         public async Task<Orders> GetOrderByIdAsync(int orderId)
         {
             return await _dataContext.Orders

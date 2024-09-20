@@ -16,10 +16,9 @@ namespace E_commerce.Services
 
         public async Task AddToCartAsync(int userId, int productId, int quantity)
         {
-            var cart = await _context.Cart
-                .Include(c => c.CartItems)
-                .FirstOrDefaultAsync(c => c.UserId == userId);
+            if (quantity <= 0) throw new ArgumentException("Quantità non valida.");
 
+            var cart = await _context.Cart.Include(c => c.CartItems).FirstOrDefaultAsync(c => c.UserId == userId);
             if (cart == null)
             {
                 cart = new Cart { UserId = userId };
@@ -38,7 +37,6 @@ namespace E_commerce.Services
 
             await _context.SaveChangesAsync();
         }
-
         public async Task CreateCartForSessionAsync(string sessionId, int productId, int quantity)
         {
             var cart = new Cart { SessionId = sessionId };
@@ -51,13 +49,13 @@ namespace E_commerce.Services
 
         public async Task AddToCartAsyncForSession(string sessionId, int productId, int quantity)
         {
-            var cart = await _context.Cart
-                .Include(c => c.CartItems)
-                .FirstOrDefaultAsync(c => c.SessionId == sessionId);
+            if (quantity <= 0) throw new ArgumentException("Quantità non valida.");
 
+            var cart = await _context.Cart.Include(c => c.CartItems).FirstOrDefaultAsync(c => c.SessionId == sessionId);
             if (cart == null)
             {
-                throw new InvalidOperationException("Il carrello per questa sessione non esiste.");
+                cart = new Cart { SessionId = sessionId };
+                _context.Cart.Add(cart);
             }
 
             var cartItem = cart.CartItems.FirstOrDefault(ci => ci.ProductId == productId);
@@ -72,7 +70,6 @@ namespace E_commerce.Services
 
             await _context.SaveChangesAsync();
         }
-
         public async Task<Cart> GetCartBySessionIdAsync(string sessionId)
         {
             return await _context.Cart
@@ -122,19 +119,13 @@ namespace E_commerce.Services
         }
         public async Task<int> GetCartItemCountAsync(int userId)
         {
-            var cart = await _context.Cart
-                .Include(c => c.CartItems)
-                .FirstOrDefaultAsync(c => c.UserId == userId);
-
+            var cart = await _context.Cart.Include(c => c.CartItems).FirstOrDefaultAsync(c => c.UserId == userId);
             return cart?.CartItems.Sum(ci => ci.Quantity) ?? 0;
         }
 
         public async Task<int> GetCartItemCountBySessionAsync(string sessionId)
         {
-            var cart = await _context.Cart
-                .Include(c => c.CartItems)
-                .FirstOrDefaultAsync(c => c.SessionId == sessionId);
-
+            var cart = await _context.Cart.Include(c => c.CartItems).FirstOrDefaultAsync(c => c.SessionId == sessionId);
             return cart?.CartItems.Sum(ci => ci.Quantity) ?? 0;
         }
     }
