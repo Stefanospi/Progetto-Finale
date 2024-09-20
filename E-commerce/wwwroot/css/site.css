@@ -430,7 +430,7 @@ hr {
 .streetwear-text-personal {
     font-size: 1.1rem;
     line-height: 1.6;
-    color: #666;
+    color: #1a1a1a;
 }
 
 /* Personalizzazione dell'altezza del carosello */
@@ -447,3 +447,21 @@ hr {
     object-position: center; /* Centra l'immagine all'interno del contenitore */
 }
 
+/* Wrapper personalizzato per le immagini dei prodotti correlati */
+.custom-related-product-wrapper {
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+/* Stile personalizzato per le immagini */
+.custom-related-product-image {
+    transition: transform 0.3s ease-in-out;
+    width: 100%;
+    height: auto;
+}
+
+/* Effetto zoom all'hover */
+.custom-related-product-wrapper:hover .custom-related-product-image {
+    transform: scale(1.1);
+}

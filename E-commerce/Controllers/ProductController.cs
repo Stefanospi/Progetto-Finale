@@ -71,15 +71,16 @@ namespace E_commerce.Controllers
         public async Task<IActionResult> Details(int id)
         {
             var product = await _productService.GetProductsById(id);
-            ViewBag.Categories = await _categoriesService.GetCategoriesAsync();
-
             if (product == null)
             {
                 return NotFound();
             }
 
-            // Usa CartHelper per aggiornare il conteggio degli articoli nel carrello
-            ViewBag.CartItemCount = await _cartHelper.GetCartItemCountAsync(User);
+            // Ottieni prodotti correlati basati sulla stessa categoria, escludendo il prodotto corrente
+            var relatedProducts = await _productService.GetProductsByCategoryAsync(product.CategoryId);
+            relatedProducts = relatedProducts.Where(p => p.ProductId != id).Take(4).ToList();
+
+            ViewBag.RelatedProducts = relatedProducts;
 
             return View(product);
         }
