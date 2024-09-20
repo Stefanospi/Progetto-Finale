@@ -19,5 +19,8 @@ namespace E_commerce.Models.ProductCart
 
         [Required]
         public int Quantity { get; set; }
+        // Aggiungi questo campo per memorizzare la taglia
+        [Required]
+        public string Size { get; set; }
     }
 }

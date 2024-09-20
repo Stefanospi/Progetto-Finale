@@ -6,15 +6,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using E_commerce.Services;
+using E_commerce.Services.Helper;
 
 namespace E_commerce.Controllers
 {
     public class AuthController : Controller
     {
+        private readonly CartHelper _cartHelper;
+
         private readonly IAuthService _authSvc;
-        public AuthController(IAuthService authService)
+        public AuthController(IAuthService authService,CartHelper cartHelper)
         {
             _authSvc = authService;
+            _cartHelper = cartHelper;
         }
         public IActionResult Register()
         {
@@ -30,6 +34,9 @@ namespace E_commerce.Controllers
             {
                 return NotFound();
             }
+            // Usa CartHelper per aggiornare il conteggio degli articoli nel carrello
+            ViewBag.CartItemCount = await _cartHelper.GetCartItemCountAsync(User);
+
 
             return View(user);
         }

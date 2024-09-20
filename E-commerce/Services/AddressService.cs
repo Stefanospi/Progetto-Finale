@@ -28,7 +28,6 @@ namespace E_commerce.Services
             _ctx.Addresses.Add(addresses);
             await _ctx.SaveChangesAsync();
 
-            _logger.LogInformation($"Indirizzo aggiunto correttamente per l'utente o la sessione {addresses.UserId ?? addresses.SessionId}");
         }
 
         // Ottieni gli indirizzi per il SessionId (per utenti non autenticati)

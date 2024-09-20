@@ -11,12 +11,14 @@ namespace E_commerce.Controllers
         private readonly ICartService _cartService;
         private readonly IAuthService _authService;
         private readonly CartHelper _cartHelper;
+        private readonly IProductService _productService;
 
-        public CartController(ICartService cartService, IAuthService authService, CartHelper cartHelper)
+        public CartController(ICartService cartService, IAuthService authService, CartHelper cartHelper, IProductService productService)
         {
             _cartService = cartService;
             _authService = authService;
             _cartHelper = cartHelper;
+            _productService = productService;
         }
 
         public async Task<IActionResult> GetCartItemCount()
@@ -52,7 +54,7 @@ namespace E_commerce.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddToCart(int productId, int quantity)
+        public async Task<IActionResult> AddToCart(int productId, int quantity, string size)
         {
             var userId = User.Identity.IsAuthenticated
                 ? int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value)
@@ -60,7 +62,7 @@ namespace E_commerce.Controllers
 
             if (userId.HasValue)
             {
-                await _cartService.AddToCartAsync(userId.Value, productId, quantity);
+                await _cartService.AddToCartAsync(userId.Value, productId, quantity, size);
             }
             else
             {
@@ -79,20 +81,19 @@ namespace E_commerce.Controllers
                 var cart = await _cartService.GetCartBySessionIdAsync(sessionId);
                 if (cart == null)
                 {
-                    await _cartService.CreateCartForSessionAsync(sessionId, productId, quantity);
+                    await _cartService.CreateCartForSessionAsync(sessionId, productId, quantity, size);
                 }
                 else
                 {
-                    await _cartService.AddToCartAsyncForSession(sessionId, productId, quantity);
+                    await _cartService.AddToCartAsyncForSession(sessionId, productId, quantity, size);
                 }
             }
 
-            // Usa CartHelper per aggiornare il conteggio degli articoli nel carrello dopo l'aggiunta
-            ViewBag.CartItemCount = await _cartHelper.GetCartItemCountAsync(User);
+            // Dopo aver aggiunto al carrello, sottrai la quantità acquistata dallo stock
+            await _productService.DecreaseProductStockAsync(productId, quantity);
 
             return RedirectToAction("CartProduct");
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemoveFromCart(int cartItemId)
