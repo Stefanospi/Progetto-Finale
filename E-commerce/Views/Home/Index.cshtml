@@ -4,7 +4,7 @@
     ViewData["Title"] = "Home Page";
     var pr = Model.FirstOrDefault();
 }
-<div class="row justify-content-center bg-black p-4">
+<div class="row justify-content-center bg-black p-4 scroll-fade-in">
     <div class="col-12 mt-2 mb-4">
         <video class="w-100" autoplay muted loop>
             <source src="~/videos/STREETWEAR AD (720p, h264, youtube).mp4" type="video/mp4">
@@ -12,11 +12,11 @@
     </div>
 </div>
 
-<div class="container-fluid p-0 m-0">
+<div class="container-fluid p-0 m-0 scroll-fade-in">
     <div class="row">
         <!-- Immagine del prodotto principale -->
         <div class="col-md-4">
-            <img src="~/img/index img.jpeg" alt="Product Image" class="img-fluid img-featured img-height-personal">
+            <img src="~/img/index img.jpeg" loading="lazy" alt="Product Image" class="img-fluid img-featured img-height-personal">
         </div>
         <div class="col-md-8">
             <!-- Breve descrizione sullo streetwear -->
@@ -36,7 +36,7 @@
             <div id="streetwearCarousel" class="carousel slide" data-bs-ride="carousel" >
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="~/img/download.png" class="d-block w-100" alt="Immagine streetwear">
+                        <img src="~/img/download.png" loading="lazy" class="d-block w-100" alt="Immagine streetwear">
                     </div>
                 </div>
             </div>

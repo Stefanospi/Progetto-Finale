@@ -23,8 +23,18 @@
                         <div class="col-md-6">
                             <!-- Visualizza le informazioni del prodotto -->
                             <h3 class="playpen-sans">@Model.Name</h3>
-                            <p class="playpen-sans">@Model.Description</p>
-                            <p><strong>Prezzo:</strong> @Model.Price.ToString("C")</p>
+
+                            <!-- Collapsible per la descrizione -->
+                            <div class="description my-2">
+                                <div class="description-title" id="toggleDescription">
+                                    <span class="playpen-sans">Descrizione</span>
+                                    <span id="toggleIcon">+</span>
+                                </div>
+                                <div class="description-content" id="descriptionContent">
+                                    <p class="playpen-sans">@Model.Description</p>
+                                </div>
+                            </div>
+                            <p><strong>Prezzo:</strong> <span class="playpen-sans">@Model.Price.ToString("C")</span></p>
 
                             @if (User.IsInRole("admin"))
                             {
@@ -81,13 +91,20 @@
                                 @foreach (var relatedProduct in ViewBag.RelatedProducts)
                                 {
                                     <div class="col-md-3">
-                                        <div class="custom-related-product-wrapper">
+                                        <div class="custom-related-product-wrapper position-relative">
                                             <a href="@Url.Action("Details", "Product", new { id = relatedProduct.ProductId })">
                                                 @if (relatedProduct.Image != null)
                                                 {
                                                     <img class="custom-related-product-image img-fluid" src="data:image/png;base64,@Convert.ToBase64String(relatedProduct.Image)" alt="@relatedProduct.Name" />
                                                 }
                                             </a>
+
+                                            <!-- Badge "NEW" in alto a sinistra -->
+                                            <span class="badge badge-new position-absolute top-0 start-0 m-2">NEU</span>
+
+                                            <!-- Prezzo in basso a sinistra -->
+                                            <span class="badge price-badge position-absolute bottom-0 start-0 m-2">@relatedProduct.Price.ToString("C")</span>
+
                                         </div>
                                     </div>
                                 }
@@ -103,3 +120,7 @@
         </div>
     </div>
 </div>
+
+<script src="/js/details.js">
+
+</script>

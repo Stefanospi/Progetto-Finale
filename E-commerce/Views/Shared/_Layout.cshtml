@@ -96,7 +96,7 @@
     <div class="container-fluid @(ViewContext.RouteData.Values["controller"].ToString() == "Auth" &&
                                 (ViewContext.RouteData.Values["action"].ToString() == "Login" ||
                                  ViewContext.RouteData.Values["action"].ToString() == "Profile" ||
-                                 ViewContext.RouteData.Values["action"].ToString() == "Register") ? "" : "body-bg")">
+                                 ViewContext.RouteData.Values["action"].ToString() == "Register") ? "" : "body-bg") ">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
