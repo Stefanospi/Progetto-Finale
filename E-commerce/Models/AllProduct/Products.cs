@@ -13,7 +13,7 @@ namespace E_commerce.Models.AllProduct
         public string Name { get; set; }
 
         // Campo opzionale per la descrizione
-        [Required(ErrorMessage ="La descrizione del prodotto è obbligatoria.")]
+        [Required(ErrorMessage = "La descrizione del prodotto è obbligatoria.")]
         [StringLength(1000, ErrorMessage = "La descrizione del prodotto non può superare i 1000 caratteri.")]
         public string Description { get; set; }
 
@@ -25,6 +25,9 @@ namespace E_commerce.Models.AllProduct
         [Required(ErrorMessage = "La quantità in stock è obbligatoria.")]
         [Range(0, int.MaxValue, ErrorMessage = "La quantità deve essere un valore positivo.")]
         public int StockQuantity { get; set; }
+
+        [StringLength(1000)]
+        public string ? TechnicalDetails { get; set; }
 
         // Chiave esterna per la categoria
         [Required(ErrorMessage = "La categoria è obbligatoria.")]

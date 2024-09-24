@@ -61,6 +61,12 @@
                             <input type="text" name="Sizes" class="form-control input-personal playpen-sans" placeholder="Esempio: S,M,L,XL" />
                             <span asp-validation-for="Sizes" class="text-danger"></span>
                         </div>
+                        <div class="form-group mb-3">
+                            <label for="TechnicalDetails" class="control-label playpen-sans">Aggiungi dettagli del prodotto</label>
+                            <input type="text" asp-for="TechnicalDetails" class="form-control input-personal playpen-sans" placeholder="Esempio:Materiale utilizzato e dettagli tecnici" />
+                            <span asp-validation-for="TechnicalDetails" class="text-danger"></span>
+                        </div>
+
 
                         <div class="text-center">
                             <button type="submit" class="button-56 playpen-sans">Salva</button>

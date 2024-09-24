@@ -1,5 +1,6 @@
 ﻿@model E_commerce.Models.AllProduct.Products
 
+<link rel="stylesheet" href="~/css/details.css" asp-append-version="true" />
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -21,7 +22,6 @@
                             }
                         </div>
                         <div class="col-md-6">
-                            <!-- Visualizza le informazioni del prodotto -->
                             <h3 class="playpen-sans">@Model.Name</h3>
 
                             <!-- Collapsible per la descrizione -->
@@ -34,40 +34,55 @@
                                     <p class="playpen-sans">@Model.Description</p>
                                 </div>
                             </div>
+
                             <p><strong>Prezzo:</strong> <span class="playpen-sans">@Model.Price.ToString("C")</span></p>
 
-                            @if (User.IsInRole("admin"))
-                            {
-                                <p><strong>Quantità disponibile:</strong> @Model.StockQuantity</p>
-                            }
+                            <p><strong>Quantità disponibile:</strong> @Model.StockQuantity</p>
+
                             <p><strong>Categoria:</strong> @Model.Category.CategoryName</p>
+                            <!-- Prodotto disponibile -->
+                            <button id="openMenuBtn" class="button-56 mb-3 playpen-sans">Mostra dettagli prodotto</button>
 
-                            <!-- Selezione taglie con bottoni -->
-                            <form asp-action="AddToCart" asp-controller="Cart" method="post">
-                                <div class="form-group mb-3">
-                                    <label for="size" class="playpen-sans">Seleziona la taglia:</label>
-                                    <div class="size-selector d-flex flex-wrap">
-                                        @foreach (var size in Model.Sizes.Split(','))
-                                        {
-                                            <div class="size-option">
-                                                <input type="radio" name="size" id="size_@size" value="@size.Trim()" required />
-                                                <label for="size_@size" class="btn btn-outline-secondary">
-                                                    @size.Trim()
-                                                </label>
-                                            </div>
-                                        }
+                            <!-- Verifica disponibilità -->
+                            @if (Model.StockQuantity == 0)
+                            {
+                                <!-- Prodotto non disponibile -->
+                                <p class="text-danger playpen-sans">Non disponibile</p>
+                                <button class="button-55 mt-2 playpen-sans" disabled style="background-color: gray; cursor: not-allowed;">
+                                    Non acquistabile
+                                </button>
+                            }
+                            else
+                            {
+                                
+
+                                <!-- Selezione taglie con bottoni -->
+                                <form asp-action="AddToCart" asp-controller="Cart" method="post">
+                                    <div class="form-group mb-3">
+                                        <label for="size" class="playpen-sans">Seleziona la taglia:</label>
+                                        <div class="size-selector d-flex flex-wrap">
+                                            @foreach (var size in Model.Sizes.Split(','))
+                                            {
+                                                <div class="size-option">
+                                                    <input type="radio" name="size" id="size_@size" value="@size.Trim()" required />
+                                                    <label for="size_@size" class="btn btn-outline-secondary">
+                                                        @size.Trim()
+                                                    </label>
+                                                </div>
+                                            }
+                                        </div>
                                     </div>
-                                </div>
 
-                                <!-- Campo input per la quantità -->
-                                <div class="form-group mb-3">
-                                    <label for="quantity" class="playpen-sans">Quantità:</label>
-                                    <input type="number" id="quantity" name="quantity" class="form-control input-personal w-50" value="1" min="1" max="@Model.StockQuantity" required />
-                                </div>
+                                    <!-- Campo input per la quantità -->
+                                    <div class="form-group mb-3">
+                                        <label for="quantity" class="playpen-sans">Quantità:</label>
+                                        <input type="number" id="quantity" name="quantity" class="form-control input-personal w-50" value="1" min="1" max="@Model.StockQuantity" required />
+                                    </div>
 
-                                <input type="hidden" name="productId" value="@Model.ProductId" />
-                                <button type="submit" class="button-55 mt-2 playpen-sans">Aggiungi al carrello</button>
-                            </form>
+                                    <input type="hidden" name="productId" value="@Model.ProductId" />
+                                    <button type="submit" class="button-55 mt-2 playpen-sans">Aggiungi al carrello</button>
+                                </form>
+                            }
 
                             @if (User.IsInRole("admin"))
                             {
@@ -121,6 +136,35 @@
     </div>
 </div>
 
-<script src="/js/details.js">
+<!-- Menù laterale -->
+<div id="offCanvasMenu" class="offcanvas-menu">
+    <div class="offcanvas-header m-0">
+        <h5 class="personal-title">Dettagli Tecnici</h5>
+        <button id="closeMenuBtn" class="offcanvas-close">&times;</button>
+    </div>
+    <div class="offcanvas-body">
+        <!-- Sezione per i dettagli tecnici -->
+        @if (!string.IsNullOrEmpty(Model.TechnicalDetails))
+        {
+            <hr />
+            <ul>
+                @{
+                    // Dividi la stringa basata sul punto
+                    var technicalDetails = Model.TechnicalDetails;
+                    var sentences = technicalDetails.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
 
-</script>
+                    // Visualizza ogni frase come un nuovo elemento della lista
+                    foreach (var sentence in sentences)
+                    {
+                        <li class="playpen-sans mb-3">@sentence.Trim()</li>
+                    }
+                }
+            </ul>
+        }
+    </div>
+</div>
+
+<!-- Overlay sfumato dietro il menù laterale -->
+<div id="bodyOverlay" class="body-overlay"></div>
+
+<script src="/js/details.js"></script>

@@ -14,3 +14,23 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+document.getElementById('openMenuBtn').addEventListener('click', function () {
+    // Mostra il menù laterale
+    document.getElementById('offCanvasMenu').classList.add('open');
+    // Attiva l'overlay sfumato
+    document.getElementById('bodyOverlay').classList.add('active');
+});
+
+document.getElementById('closeMenuBtn').addEventListener('click', function () {
+    // Chiudi il menù laterale
+    document.getElementById('offCanvasMenu').classList.remove('open');
+    // Rimuovi l'overlay sfumato
+    document.getElementById('bodyOverlay').classList.remove('active');
+});
+
+document.getElementById('bodyOverlay').addEventListener('click', function () {
+    // Chiudi il menù laterale e l'overlay se clicchi fuori dal menù
+    document.getElementById('offCanvasMenu').classList.remove('open');
+    document.getElementById('bodyOverlay').classList.remove('active');
+});

@@ -1,0 +1,95 @@
+﻿/* Off-canvas menu base */
+.offcanvas-menu {
+    position: fixed;
+    right: -300px; /* Posizionato fuori dallo schermo */
+    top: 0;
+    width: 300px; /* Larghezza normale */
+    height: 100%;
+    background-color: #fff;
+    box-shadow: -3px 0 5px rgba(0, 0, 0, 0.2);
+    transition: right 0.4s ease, width 0.4s ease; /* Aggiungi transizione per la larghezza */
+    z-index: 1050;
+    padding: 15px;
+    overflow-y: auto; /* Permette lo scroll per contenuti lunghi */
+}
+
+    /* Menù aperto */
+    .offcanvas-menu.open {
+        right: 0; /* Posizionato dentro lo schermo */
+        width: 400px; /* Larghezza aumentata quando è aperto */
+    }
+
+/* Media query per schermi più grandi (desktop) */
+@media (min-width: 768px) {
+    .offcanvas-menu.open {
+        width: 500px; /* Larghezza ancora più grande su desktop */
+    }
+}
+
+/* Stile per l'intestazione del menù */
+.offcanvas-header {
+    padding: 15px;
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .offcanvas-header h4 {
+        margin: 0;
+    }
+
+.offcanvas-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* Stile per il corpo del menù */
+.offcanvas-body {
+    padding: 15px;
+}
+
+    /* Animazione per i paragrafi (fade-in) */
+    .offcanvas-body p {
+        margin-bottom: 10px;
+        opacity: 0; /* Inizia con opacità a 0 */
+        transform: translateY(40px); /* Spostamento verso il basso, aumentato per maggiore visibilità */
+        animation: fadeInUp 4s forwards; /* Animazione più lenta (2 secondi) */
+        animation-delay: 1s; /* Ritardo leggermente maggiore per creare l'effetto di caricamento */
+    }
+
+/* Definizione dell'animazione fade-in */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(40px); /* Inizia spostato leggermente di più verso il basso */
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0); /* Torna nella posizione originale */
+    }
+}
+
+/* Effetto sfumato quando il menù laterale è aperto */
+.body-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+    .body-overlay.active {
+        display: block;
+        opacity: 1;
+    }

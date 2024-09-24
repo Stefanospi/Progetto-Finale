@@ -51,6 +51,7 @@
                             <span asp-validation-for="PostalCode" class="text-danger"></span>
                         </div>
 
+
                         <div class="form-group mb-3">
                             <label for="Country" class="control-label playpen-sans">Paese</label>
                             <input type="text" class="form-control input-personal playpen-sans" name="Country" required>
@@ -66,3 +67,17 @@
         </div>
     </div>
 </div>
+
+<script>
+
+    // Validazione manuale lato client (opzionale, se la validazione nativa non funziona)
+    document.querySelector('form').addEventListener('submit', function (event) {
+        var postalCode = document.querySelector('input[name="PostalCode"]').value;
+        var regex = /^\d{5,10}$/;
+
+        if (!regex.test(postalCode)) {
+            alert('Il Codice Postale deve contenere solo cifre e avere tra 5 e 10 caratteri.');
+            event.preventDefault(); // Impedisce l'invio del modulo
+        }
+    });
+</script>
