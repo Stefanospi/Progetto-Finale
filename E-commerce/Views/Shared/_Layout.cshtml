@@ -18,7 +18,9 @@
         <nav class="navbar navbar-expand-lg navbar-light @(ViewContext.RouteData.Values["controller"].ToString() == "Auth" &&
                                 (ViewContext.RouteData.Values["action"].ToString() == "Login" ||
                                  ViewContext.RouteData.Values["action"].ToString() == "Profile" ||
-                                 ViewContext.RouteData.Values["action"].ToString() == "Register") ? "" : "body-bg")">
+                                 ViewContext.RouteData.Values["action"].ToString() == "Register") ||
+                                 (ViewContext.RouteData.Values["controller"].ToString() == "Order" &&
+                                  ViewContext.RouteData.Values["action"].ToString() == "OrderDetails") ? "" : "body-bg")">
             <div class="container-fluid justify-content-between">
                 <!-- Left elements -->
                 <div class="d-flex">
@@ -94,9 +96,11 @@
         </nav>
     </header>
     <div class="container-fluid @(ViewContext.RouteData.Values["controller"].ToString() == "Auth" &&
-                                (ViewContext.RouteData.Values["action"].ToString() == "Login" ||
-                                 ViewContext.RouteData.Values["action"].ToString() == "Profile" ||
-                                 ViewContext.RouteData.Values["action"].ToString() == "Register") ? "" : "body-bg") ">
+                            (ViewContext.RouteData.Values["action"].ToString() == "Login" ||
+                             ViewContext.RouteData.Values["action"].ToString() == "Profile" ||
+                             ViewContext.RouteData.Values["action"].ToString() == "Register") ||
+                             (ViewContext.RouteData.Values["controller"].ToString() == "Order" &&
+                              ViewContext.RouteData.Values["action"].ToString() == "OrderDetails") ? "" : "body-bg") ">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -106,7 +110,9 @@
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-1 border-top @(ViewContext.RouteData.Values["controller"].ToString() == "Auth" &&
                                 (ViewContext.RouteData.Values["action"].ToString() == "Login" ||
                                  ViewContext.RouteData.Values["action"].ToString() == "Profile" ||
-                                 ViewContext.RouteData.Values["action"].ToString() == "Register") ? "" : "body-bg")">
+                                 ViewContext.RouteData.Values["action"].ToString() == "Register") ||
+                                 (ViewContext.RouteData.Values["controller"].ToString() == "Order" &&
+                                  ViewContext.RouteData.Values["action"].ToString() == "OrderDetails") ? "" : "body-bg")">
         <div class="col-md-4 d-flex align-items-center">
             <a class="navbar-brand me-2" asp-controller="Home" asp-action="Index">
                 <img src="~/img/Modern Minimalist Graffiti Dream Brand Logo.png"

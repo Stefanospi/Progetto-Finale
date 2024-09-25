@@ -73,8 +73,10 @@ namespace E_commerce.Services
         // Recupera utente per Id
         public async Task<Users> GetUserByIdAsync(int userId)
         {
-            var user = await _ctx.Users.FindAsync(userId);
-
+            var user = await _ctx.Users
+                   .Include(u => u.Roles)  // Includi i ruoli, se applicabile
+                   .Include(u => u.Orders)  // Se ci sono ordini correlati da includere
+                   .FirstOrDefaultAsync(u => u.IdUser == userId);
             if (user == null)
             {
                 _logger.LogWarning($"Utente con ID {userId} non trovato.");

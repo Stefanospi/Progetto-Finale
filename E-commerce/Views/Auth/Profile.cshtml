@@ -1,6 +1,4 @@
-﻿@model E_commerce.Models.Auth.Users
-
-<div class="container-fluid video-bg">
+﻿<div class="container-fluid video-bg">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow-lg">
@@ -8,6 +6,7 @@
                     <h3 class="card-title text-center personal-title text-light">Profilo Utente</h3>
                 </div>
                 <div class="card-body mt-4">
+                    <!-- Dati profilo utente -->
                     <div class="row mb-3">
                         <div class="col-md-4 text-center">
                             <img src="~/img/Modern Minimalist Graffiti Dream Brand Logo.png" class="rounded-circle img-fluid-personal border" alt="Immagine Profilo">
@@ -31,8 +30,50 @@
                         </div>
                     </div>
 
+                    <!-- Sezione Ordini -->
+                    <div class="mt-4">
+                        <h4 class="personal-title text-center">I tuoi ordini</h4>
+                        <table class="table table-striped mt-3 playpen-sans">
+                            <thead>
+                                <tr>
+                                    <th>ID Ordine</th>
+                                    <th>Data</th>
+                                    <th>Importo totale</th>
+                                    <th>Stato</th>
+                                    <th>Azioni</th> <!-- Colonna per i bottoni -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (ViewBag.Orders != null)
+                                {
+                                    foreach (var order in ViewBag.Orders)
+                                    {
+                                        <tr>
+                                            <td>@order.OrderId</td>
+                                            <td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
+                                            <td>@order.TotalAmount.ToString("C")</td>
+                                            <td>@order.Status</td>
+                                            <td>
+                                                <!-- Bottone "Dettagli Ordine" -->
+                                                <a href="@Url.Action("OrderDetails", "Order", new { orderId = order.OrderId })" class="playpen-sans">
+                                                    Dettagli Ordine
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="5" class="text-center">Nessun ordine trovato.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
                     <!-- Pulsanti per modifica o altre azioni -->
-                    <div class="text-center">
+                    <div class="text-center mt-4">
                         <a asp-controller="Auth" asp-action="EditProfile" class="button-56 playpen-sans">Modifica Profilo</a>
                     </div>
                 </div>
@@ -40,7 +81,6 @@
         </div>
     </div>
 </div>
-
 <!-- Video di sfondo -->
 <video autoplay muted loop id="backgroundVideo">
     <source src="~/videos/STREETWEAR AD (720p, h264, youtube).mp4" type="video/mp4">

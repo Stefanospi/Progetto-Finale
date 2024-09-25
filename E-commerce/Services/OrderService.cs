@@ -75,5 +75,17 @@ namespace E_commerce.Services
             _dataContext.Orders.Update(existingOrder);
             await _dataContext.SaveChangesAsync();
         }
+        public async Task<List<Orders>> GetOrdersByUserIdAsync(int userId)
+        {
+            if (userId <= 0) throw new ArgumentException("ID utente non valido.");
+
+            var orders = await _dataContext.Orders
+                .Include(o => o.OrderItems)
+                .ThenInclude(oi => oi.Product)
+                .Where(o => o.UserId == userId)
+                .ToListAsync();
+
+            return orders;
+        }
     }
 }

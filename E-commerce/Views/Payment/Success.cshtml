@@ -1,16 +1,14 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model E_commerce.Models.Order.Orders  // Usa il tipo Orders corretto
+
 <style>
-    body{
-        height:auto;
+    body {
+        height: auto;
         background-color: #F4F4F4;
     }
 </style>
-<div class="container-fluid d-flex justify-content-center align-items-center">
-    <div class="col-md-6">
+
+<div class="container-fluid d-flex justify-content-center align-items-center mt-5">
+    <div class="col-md-8">
         <div class="card shadow-lg">
             <div class="card-header bg-gradient bg-black">
                 <h3 class="card-title text-center personal-title text-light">Pagamento Riuscito</h3>
@@ -20,8 +18,43 @@
                     Il tuo pagamento è stato completato con successo! Grazie per il tuo acquisto. Riceverai presto una conferma via email.
                 </p>
 
+                <!-- Riepilogo ordine -->
+                <div class="order-summary mt-4">
+                    <h5 class="text-center">Riepilogo Ordine</h5>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Prodotto</th>
+                                <th>Quantità</th>
+                                <th>Prezzo</th>
+                                <th>Totale</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.OrderItems)
+                            {
+                                <tr>
+                                    <td>@item.Product.Name</td> <!-- Se Product ha un nome -->
+                                    <td>@item.Quantity</td>
+                                    <td>@item.UnitPrice.ToString("C")</td>
+                                    <td>@{(item.UnitPrice * item.Quantity).ToString("C", System.Globalization.CultureInfo.CurrentCulture);}</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    <hr />
+                    <h4 class="text-right"><strong>Totale Ordine:</strong> @Model.TotalAmount.ToString("C")</h4>
+
+                    <h5 class="mt-4">Indirizzo di Spedizione</h5>
+                    <p>@Model.ShippingAddress.AddressLine1</p>
+                    <p>@Model.ShippingAddress.AddressLine2</p>
+                    <p>@Model.ShippingAddress.City, @Model.ShippingAddress.State, @Model.ShippingAddress.PostalCode</p>
+                    <p>@Model.ShippingAddress.Country</p>
+                </div>
+
                 <!-- Bottone per tornare al negozio -->
-                <div class="text-center">
+                <div class="text-center mt-4">
                     <a href="@Url.Action("Index", "Home")" class="button-55 playpen-sans">Torna al Negozio</a>
                 </div>
             </div>

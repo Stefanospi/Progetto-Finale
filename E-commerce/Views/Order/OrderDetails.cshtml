@@ -1,0 +1,67 @@
+﻿@model E_commerce.Models.Order.Orders
+
+<div class="container-fluid video-bg">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-header bg-gradient bg-black">
+                    <h3 class="card-title text-center personal-title text-light">Dettagli Ordine #@Model.OrderId</h3>
+                </div>
+                <div class="card-body mt-4">
+                    <!-- Dati dell'ordine -->
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <dl class="row">
+                                <dt class="col-sm-4 playpen-sans">Data dell'ordine:</dt>
+                                <dd class="col-sm-8 playpen-sans">@Model.OrderDate.ToString("dd/MM/yyyy")</dd>
+
+                                <dt class="col-sm-4 playpen-sans">Stato:</dt>
+                                <dd class="col-sm-8 playpen-sans">@Model.Status</dd>
+
+                                <dt class="col-sm-4 playpen-sans">Importo totale:</dt>
+                                <dd class="col-sm-8 playpen-sans">@Model.TotalAmount.ToString("C")</dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <!-- Prodotti nell'ordine -->
+                    <div class="mt-4">
+                        <h4 class="personal-title text-center text-decoration-underline">Prodotti nell'Ordine</h4>
+                        <table class="table table-striped mt-3 playpen-sans">
+                            <thead>
+                                <tr>
+                                    <th>Prodotto</th>
+                                    <th>Quantità</th>
+                                    <th>Prezzo unitario</th>
+                                    <th>Totale</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.OrderItems)
+                                {
+                                    <tr>
+                                        <td>@item.Product.Name</td>
+                                        <td>@item.Quantity</td>
+                                        <td>@item.UnitPrice.ToString("C")</td>
+                                        <td>@(item.Quantity * item.UnitPrice).ToString("C")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pulsante per tornare agli ordini -->
+                    <div class="text-center mt-4">
+                        <a href="@Url.Action("Profile", "Auth")" class="button-56 playpen-sans">Torna agli ordini</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Video di sfondo -->
+<video autoplay muted loop id="backgroundVideo">
+    <source src="~/videos/STREETWEAR AD (720p, h264, youtube).mp4" type="video/mp4">
+    Il tuo browser non supporta il video tag.
+</video>

@@ -15,10 +15,12 @@ namespace E_commerce.Controllers
         private readonly CartHelper _cartHelper;
 
         private readonly IAuthService _authSvc;
-        public AuthController(IAuthService authService,CartHelper cartHelper)
+        private readonly IOrderService _orderService;
+        public AuthController(IAuthService authService,CartHelper cartHelper,IOrderService orderService)
         {
             _authSvc = authService;
             _cartHelper = cartHelper;
+            _orderService = orderService;
         }
         public IActionResult Register()
         {
@@ -34,13 +36,18 @@ namespace E_commerce.Controllers
             {
                 return NotFound();
             }
+
+            // Recupera gli ordini dell'utente
+            var orders = await _orderService.GetOrdersByUserIdAsync(user.IdUser);
+
             // Usa CartHelper per aggiornare il conteggio degli articoli nel carrello
             ViewBag.CartItemCount = await _cartHelper.GetCartItemCountAsync(User);
 
+            // Passa gli ordini alla vista
+            ViewBag.Orders = orders;
 
             return View(user);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]

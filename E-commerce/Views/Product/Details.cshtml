@@ -40,8 +40,9 @@
                             <p><strong>Quantità disponibile:</strong> @Model.StockQuantity</p>
 
                             <p><strong>Categoria:</strong> @Model.Category.CategoryName</p>
+
                             <!-- Prodotto disponibile -->
-                            <button id="openMenuBtn" class="button-56 mb-3 playpen-sans">Mostra dettagli prodotto</button>
+                            <button id="openMenuBtn" class="button-56 mb-3 playpen-sans">Mostra dettagli tecnici</button>
 
                             <!-- Verifica disponibilità -->
                             @if (Model.StockQuantity == 0)
@@ -54,17 +55,15 @@
                             }
                             else
                             {
-                                
-
                                 <!-- Selezione taglie con bottoni -->
-                                <form asp-action="AddToCart" asp-controller="Cart" method="post">
+                                <form id="addToCartForm" asp-action="AddToCart" asp-controller="Cart" method="post">
                                     <div class="form-group mb-3">
                                         <label for="size" class="playpen-sans">Seleziona la taglia:</label>
                                         <div class="size-selector d-flex flex-wrap">
                                             @foreach (var size in Model.Sizes.Split(','))
                                             {
                                                 <div class="size-option">
-                                                    <input type="radio" name="size" id="size_@size" value="@size.Trim()" required />
+                                                    <input type="radio" name="size" id="size_@size" value="@size.Trim()" />
                                                     <label for="size_@size" class="btn btn-outline-secondary">
                                                         @size.Trim()
                                                     </label>
@@ -86,12 +85,23 @@
 
                             @if (User.IsInRole("admin"))
                             {
-                                <a href="@Url.Action("Edit", "Product", new { id = Model.ProductId })" class="btn btn-secondary mt-3">Modifica</a>
-                                <form asp-action="Delete" asp-controller="Product" method="post" onsubmit="return confirm('Sei sicuro di voler eliminare questo prodotto?')" style="display:inline-block;">
-                                    @Html.AntiForgeryToken()
-                                    <input type="hidden" value="@Model.ProductId" name="id" />
-                                    <button type="submit" class="btn btn-danger mt-3">Elimina</button>
-                                </form>
+                                <div class="d-flex align-items-center mt-3">
+                                    <a href="@Url.Action("Edit", "Product", new { id = Model.ProductId })" class="playpen-sans button-56 me-2">Modifica</a>
+                                    <!-- Pulsante di Eliminazione -->
+                                    <form id="deleteProductForm" asp-action="Delete" asp-controller="Product" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" value="@Model.ProductId" name="id" />
+                                        <button type="button" id="deleteButton" class="button-57">Elimina</button>
+                                    </form>
+                                </div>
+                                <!-- Messaggio di conferma eliminazione -->
+                                <div id="confirmDelete" class="confirm-delete">
+                                    <p>Sei sicuro di voler eliminare questo prodotto?</p>
+                                    <button type="submit" class="button-55">Conferma</button>
+                                    <button type="button" id="cancelButton" class="button-55">Annulla</button>
+                                </div>
+
+                                
                             }
                         </div>
                     </div>
@@ -148,16 +158,9 @@
         {
             <hr />
             <ul>
-                @{
-                    // Dividi la stringa basata sul punto
-                    var technicalDetails = Model.TechnicalDetails;
-                    var sentences = technicalDetails.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
-
-                    // Visualizza ogni frase come un nuovo elemento della lista
-                    foreach (var sentence in sentences)
-                    {
-                        <li class="playpen-sans mb-3">@sentence.Trim()</li>
-                    }
+                @foreach (var sentence in Model.TechnicalDetails.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    <li class="playpen-sans mb-3">@sentence.Trim()</li>
                 }
             </ul>
         }
@@ -167,4 +170,5 @@
 <!-- Overlay sfumato dietro il menù laterale -->
 <div id="bodyOverlay" class="body-overlay"></div>
 
+<!-- Script -->
 <script src="/js/details.js"></script>

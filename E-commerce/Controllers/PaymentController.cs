@@ -23,11 +23,21 @@ public class PaymentController : Controller
     {
         try
         {
-            // Creazione della sessione di pagamento
+            // Recupera l'ordine dal database
+            var order = await _orderService.GetOrderByIdAsync(orderId);
+            if (order == null)
+            {
+                return NotFound("Ordine non trovato.");
+            }
+
+            // Usa l'importo totale dell'ordine per il pagamento
+            var totalAmount = order.TotalAmount;
+
+            // Creazione della sessione di pagamento Stripe
             var session = await _stripePaymentService.CreateCheckoutSessionAsync(
                 orderId,
-                "usd", // Moneta
-                100m,  // Sostituisci con il prezzo reale del prodotto o dell'ordine
+                "eur", // Moneta
+                totalAmount,  // Usa il prezzo reale dell'ordine
                 Url.Action("Success", "Payment", new { orderId = orderId }, Request.Scheme),
                 Url.Action("Cancel", "Payment", null, Request.Scheme)
             );
