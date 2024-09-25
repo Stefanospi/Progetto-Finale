@@ -12,13 +12,13 @@
                     <div class="row mb-3">
                         <div class="col-md-12">
                             <dl class="row">
-                                <dt class="col-sm-4 playpen-sans">Data dell'ordine:</dt>
+                                <dt class="col-sm-4 playpen-sans fw-bold">Data dell'ordine:</dt>
                                 <dd class="col-sm-8 playpen-sans">@Model.OrderDate.ToString("dd/MM/yyyy")</dd>
 
-                                <dt class="col-sm-4 playpen-sans">Stato:</dt>
+                                <dt class="col-sm-4 playpen-sans fw-bold">Stato:</dt>
                                 <dd class="col-sm-8 playpen-sans">@Model.Status</dd>
 
-                                <dt class="col-sm-4 playpen-sans">Importo totale:</dt>
+                                <dt class="col-sm-4 playpen-sans fw-bold">Importo totale:</dt>
                                 <dd class="col-sm-8 playpen-sans">@Model.TotalAmount.ToString("C")</dd>
                             </dl>
                         </div>
@@ -26,7 +26,9 @@
 
                     <!-- Prodotti nell'ordine -->
                     <div class="mt-4">
-                        <h4 class="playpen-sans text-center text-decoration-underline">Prodotti nell'Ordine</h4>
+                        <div class="card-header bg-gradient bg-black">
+                            <h3 class="card-title text-center personal-title text-light">Prodotti nell'ordine</h3>
+                        </div>
                         <table class="table table-striped mt-3 playpen-sans">
                             <thead>
                                 <tr>

@@ -1,4 +1,4 @@
-﻿@model E_commerce.Models.Order.Orders  // Usa il tipo Orders corretto
+﻿@model E_commerce.Models.Order.Orders
 
 <style>
     body {
@@ -6,6 +6,8 @@
         background-color: #F4F4F4;
     }
 </style>
+<link rel="stylesheet" href="~/css/success.css" asp-append-version="true" />
+
 
 <div class="container-fluid d-flex justify-content-center align-items-center mt-5">
     <div class="col-md-8">
@@ -20,14 +22,13 @@
 
                 <!-- Riepilogo ordine -->
                 <div class="order-summary mt-4">
-                    <h5 class="text-center">Riepilogo Ordine</h5>
-                    <table class="table table-bordered">
+                    <h5 class="text-center playpen-sans">Riepilogo Ordine</h5>
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th>Prodotto</th>
                                 <th>Quantità</th>
                                 <th>Prezzo</th>
-                                <th>Totale</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,21 +37,32 @@
                                 <tr>
                                     <td>@item.Product.Name</td> <!-- Se Product ha un nome -->
                                     <td>@item.Quantity</td>
-                                    <td>@item.UnitPrice.ToString("C")</td>
-                                    <td>@((item.UnitPrice * item.Quantity).ToString("C"))</td>
+                                    <td>@item.UnitPrice.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("it-IT"))</td>
                                 </tr>
                             }
                         </tbody>
                     </table>
 
                     <hr />
-                    <h4 class="text-right"><strong>Totale Ordine:</strong> @Model.TotalAmount.ToString("C")</h4>
-
-                    <h5 class="mt-4">Indirizzo di Spedizione</h5>
-                    <p>@Model.ShippingAddress.AddressLine1</p>
-                    <p>@Model.ShippingAddress.AddressLine2</p>
-                    <p>@Model.ShippingAddress.City, @Model.ShippingAddress.State, @Model.ShippingAddress.PostalCode</p>
-                    <p>@Model.ShippingAddress.Country</p>
+                    <h5 class="mt-4 playpen-sans text-center">Indirizzo di Spedizione</h5>
+                    <div class="shipping-address card shadow-sm p-4 mb-4">
+                        <div class="row">
+                            <div class="col-md-1 d-flex align-items-center justify-content-center">
+                                <i class="bi bi-geo-alt-fill text-danger" style="font-size: 2rem;"></i>
+                            </div>
+                            <div class="col-md-11">
+                                <p class="playpen-sans mb-1"><strong>Via:</strong> @Model.ShippingAddress.AddressLine1</p>
+                                @if (!string.IsNullOrEmpty(Model.ShippingAddress.AddressLine2))
+                                {
+                                    <p class="playpen-sans mb-1"><strong>Via secondaria:</strong>@Model.ShippingAddress.AddressLine2</p>
+                                }
+                                <p class="playpen-sans mb-1"><strong>Città:</strong> @Model.ShippingAddress.City</p>
+                                <p class="playpen-sans mb-1"><strong>Stato:</strong> @Model.ShippingAddress.State</p>
+                                <p class="playpen-sans mb-1"><strong>Codice Postale:</strong> @Model.ShippingAddress.PostalCode</p>
+                                <p class="playpen-sans mb-1"><strong>Paese:</strong> @Model.ShippingAddress.Country</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Bottone per tornare al negozio -->

@@ -1,0 +1,57 @@
+﻿.order-summary {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+    .order-summary h5, .order-summary h4 {
+        font-family: 'Playpen Sans', cursive;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .order-summary table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse; /* Rimuove spazi tra celle */
+        border-radius: 15px;
+        overflow: hidden; /* Per gestire gli angoli arrotondati */
+    }
+
+        .order-summary table th, .order-summary table td {
+            padding: 15px;
+            text-align: left;
+            font-family: 'Playpen Sans', cursive;
+        }
+
+        .order-summary table th {
+            background-color: #333;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .order-summary table td {
+            background-color: #f9f9f9;
+        }
+
+        /* Rimuovi i bordi interni tra le celle */
+        .order-summary table td, .order-summary table th {
+            border: none;
+        }
+
+    /* Bordo unico per l'intera tabella */
+    .order-summary table {
+        border: 2px solid #333;
+    }
+
+    .order-summary h4 {
+        text-align: right;
+        color: #000;
+        font-size: 1.5rem;
+    }
+
+/* Spaziatura margine */
+.order-summary p {
+    margin-bottom: 5px;
+}
