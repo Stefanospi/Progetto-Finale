@@ -51,12 +51,16 @@
                                 @await Html.PartialAsync("_CartItemCountPartial", (int?)ViewBag.CartItemCount ?? 0)
                             </a>
                         }
-                    </li>                    @if (User.IsInRole("admin"))
+                    </li>                    
+                    @if (User.IsInRole("admin"))
                     {
                         <li class="nav-item me-3 me-lg-1">
                             <a class="nav-link" asp-controller="Product" asp-action="Create">
                                 <span><i class="bi bi-plus fa-lg"></i></span>
                             </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Dashboard", "Admin")"><i class="bi bi-speedometer fa-lg"></i></a>
                         </li>
                     }
                     @if (User.Identity.IsAuthenticated)

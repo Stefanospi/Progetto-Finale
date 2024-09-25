@@ -129,5 +129,9 @@ namespace E_commerce.Services
             _ctx.Products.Update(product);
             await _ctx.SaveChangesAsync();
         }
+        public async Task<List<Products>> GetAllProductsAsync()
+        {
+            return await _ctx.Products.ToListAsync();
+        }
     }
 }

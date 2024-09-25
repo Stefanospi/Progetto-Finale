@@ -87,5 +87,12 @@ namespace E_commerce.Services
 
             return orders;
         }
+        public async Task<List<Orders>> GetAllOrdersAsync()
+        {
+            return await _dataContext.Orders
+                .Include(o => o.OrderItems)
+                .ThenInclude(oi => oi.Product)
+                .ToListAsync();
+        }
     }
 }

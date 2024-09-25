@@ -8,5 +8,6 @@ namespace E_commerce.Services.Interfaces
         Task<Users> LoginAsync(Users user);
         Task<Users> GetUserByIdAsync(int userId);
         Task UpdateUserAsync(Users user);
+        Task<List<Users>> GetAllUsersAsync();
     }
 }

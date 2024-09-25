@@ -8,5 +8,6 @@ namespace E_commerce.Services.Interfaces
         Task<Orders> GetOrderByIdAsync(int orderId);
         Task UpdateOrderAsync(Orders order);
         Task<List<Orders>> GetOrdersByUserIdAsync(int userId);
+        Task<List<Orders>> GetAllOrdersAsync();
     }
 }

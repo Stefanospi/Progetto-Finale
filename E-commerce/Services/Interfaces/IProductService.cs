@@ -12,6 +12,7 @@ namespace E_commerce.Services.Interfaces
         Task<IEnumerable<Products>> GetProductsByCategoryAsync(int categoryId);
         Task<IEnumerable<Products>> SearchProducts(string query);
         Task DecreaseProductStockAsync(int productId, int quantity);
+        Task<List<Products>> GetAllProductsAsync();
 
     }
 }

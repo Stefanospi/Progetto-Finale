@@ -117,5 +117,9 @@ namespace E_commerce.Services
 
             _logger.LogInformation($"Profilo aggiornato per utente con ID {user.IdUser}.");
         }
+        public async Task<List<Users>> GetAllUsersAsync()
+        {
+            return await _ctx.Users.Include(u => u.Roles).ToListAsync();
+        }
     }
 }
