@@ -37,7 +37,7 @@
                                     <td>@item.Product.Name</td> <!-- Se Product ha un nome -->
                                     <td>@item.Quantity</td>
                                     <td>@item.UnitPrice.ToString("C")</td>
-                                    <td>@{(item.UnitPrice * item.Quantity).ToString("C", System.Globalization.CultureInfo.CurrentCulture);}</td>
+                                    <td>@((item.UnitPrice * item.Quantity).ToString("C"))</td>
                                 </tr>
                             }
                         </tbody>

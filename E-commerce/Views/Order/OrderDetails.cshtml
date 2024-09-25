@@ -26,7 +26,7 @@
 
                     <!-- Prodotti nell'ordine -->
                     <div class="mt-4">
-                        <h4 class="personal-title text-center text-decoration-underline">Prodotti nell'Ordine</h4>
+                        <h4 class="playpen-sans text-center text-decoration-underline">Prodotti nell'Ordine</h4>
                         <table class="table table-striped mt-3 playpen-sans">
                             <thead>
                                 <tr>
@@ -43,7 +43,7 @@
                                         <td>@item.Product.Name</td>
                                         <td>@item.Quantity</td>
                                         <td>@item.UnitPrice.ToString("C")</td>
-                                        <td>@(item.Quantity * item.UnitPrice).ToString("C")</td>
+                                        <td>@((item.Quantity * item.UnitPrice).ToString("C"))</td>
                                     </tr>
                                 }
                             </tbody>

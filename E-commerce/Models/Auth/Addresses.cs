@@ -13,7 +13,7 @@ namespace E_commerce.Models.Auth
         public string AddressLine1 { get; set; }
 
         [StringLength(100, ErrorMessage = "Indirizzo 2 può avere massimo 100 caratteri.")]
-        public string AddressLine2 { get; set; }  // Opzionale
+        public string ?AddressLine2 { get; set; }  // Opzionale
 
         [Required(ErrorMessage = "Città è obbligatoria")]
         [StringLength(50, ErrorMessage = "Città può avere massimo 50 caratteri.")]
