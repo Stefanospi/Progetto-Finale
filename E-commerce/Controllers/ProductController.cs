@@ -81,6 +81,9 @@ namespace E_commerce.Controllers
             relatedProducts = relatedProducts.Where(p => p.ProductId != id).Take(4).ToList();
 
             ViewBag.RelatedProducts = relatedProducts;
+            // Aggiorna il conteggio degli articoli nel carrello
+            ViewBag.CartItemCount = await _cartHelper.GetCartItemCountAsync(User);
+
 
             return View(product);
         }
