@@ -29,6 +29,8 @@
                                 <th>Prodotto</th>
                                 <th>Quantità</th>
                                 <th>Prezzo</th>
+                                <th>Totale</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -38,6 +40,8 @@
                                     <td>@item.Product.Name</td> <!-- Se Product ha un nome -->
                                     <td>@item.Quantity</td>
                                     <td>@item.UnitPrice.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("it-IT"))</td>
+                                    <td>@((item.UnitPrice * item.Quantity).ToString("C", System.Globalization.CultureInfo.GetCultureInfo("it-IT")))</td>
+
                                 </tr>
                             }
                         </tbody>

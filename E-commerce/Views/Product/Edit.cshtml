@@ -55,10 +55,16 @@
                             <input asp-for="Image" type="file" class="form-control input-personal playpen-sans" />
                             <span asp-validation-for="Image" class="text-danger"></span>
                         </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="StockQuantity" class="control-label playpen-sans">Quantità in stock</label>
+                            <input asp-for="StockQuantity" type="number" step="1" class="form-control input-personal playpen-sans" />
+                            <span asp-validation-for="StockQuantity" class="text-danger"></span>
+                        </div>
+
 
                         <div class="form-group mb-3">
                             <label for="Sizes" class="control-label playpen-sans">Taglie disponibili (separate da virgole):</label>
-                            <input type="text" name="Sizes" class="form-control input-personal playpen-sans" placeholder="Esempio: S,M,L,XL" />
+                            <input type="text"asp-for="Sizes" class="form-control input-personal playpen-sans" placeholder="Esempio: S,M,L,XL" />
                             <span asp-validation-for="Sizes" class="text-danger"></span>
                         </div>
                         <div class="form-group mb-3">
