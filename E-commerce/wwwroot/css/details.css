@@ -122,3 +122,10 @@
         margin-right: 10px;
     }
 
+
+.img-height-personal {
+    max-width: 100%; /* L'immagine non supererà mai il 100% della larghezza del contenitore */
+    max-height: 500px; /* Imposta un limite massimo all'altezza dell'immagine */
+    object-fit: cover; /* Mantiene le proporzioni dell'immagine */
+    border-radius: 10px; /* Aggiunge un leggero angolo arrotondato all'immagine */
+}

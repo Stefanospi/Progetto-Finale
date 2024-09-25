@@ -160,12 +160,16 @@
             <ul>
                 @foreach (var sentence in Model.TechnicalDetails.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    <li class="playpen-sans mb-3">@sentence.Trim()</li>
+                    @if (!string.IsNullOrWhiteSpace(sentence.Trim()))
+                    {
+                        <li class="playpen-sans mb-3">@sentence.Trim()</li>
+                    }
                 }
             </ul>
         }
     </div>
 </div>
+
 
 <!-- Overlay sfumato dietro il menù laterale -->
 <div id="bodyOverlay" class="body-overlay"></div>
