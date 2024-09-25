@@ -31,6 +31,17 @@ Il progetto **GINGER E-Commerce** è un sito dedicato alla vendita di prodotti *
 #### 💾 Database:
 - **SQL Server**: Utilizzato per l'archiviazione dei dati, compresi i prodotti, gli ordini e le informazioni sugli utenti.
 
+---
+
+### 🌐 Integrazione con Stripe
+
+Abbiamo integrato **Stripe**, una delle migliori piattaforme di pagamento online, per gestire in modo sicuro e rapido i pagamenti degli utenti. L'API di Stripe permette di:
+- Creare sessioni di checkout dinamiche.
+- Gestire in modo sicuro le informazioni di pagamento.
+- Ricevere notifiche sullo stato del pagamento e aggiornare lo stato dell'ordine dell'utente in tempo reale.
+  
+Stripe fornisce una soluzione robusta che garantisce la sicurezza delle transazioni, proteggendo i dati sensibili e semplificando il processo di pagamento per gli utenti.
+
 ### 🛠️ Tools:
 - **Visual Studio & Visual Studio Code**: IDE principali utilizzati per lo sviluppo del progetto.
 - **Git & GitHub**: Utilizzati per il controllo di versione e la collaborazione.
