@@ -2,7 +2,7 @@
 
 Il progetto **GINGER E-Commerce** è un sito dedicato alla vendita di prodotti **streetwear**. L'obiettivo principale è offrire un'esperienza di shopping moderna e coinvolgente, con un design accattivante e funzionalità pensate per gli appassionati di moda urbana.
 
-### 📚 Caratteristiche principali
+## 📚 Caratteristiche principali
 
 - **Navigazione intuitiva**: Un'interfaccia pulita e facile da usare, con menu di navigazione chiari per esplorare i prodotti in diverse categorie.
   
@@ -16,19 +16,19 @@ Il progetto **GINGER E-Commerce** è un sito dedicato alla vendita di prodotti *
   
 - **Pannello Admin**: Gli amministratori possono gestire il catalogo prodotti, aggiungendo o modificando articoli direttamente dall'interfaccia web.
 
-### ⚙️ Tecnologie utilizzate
+## ⚙️ Tecnologie utilizzate
 
-#### 🎨 Frontend:
+### 🎨 Frontend:
 - **HTML5, CSS3, Bootstrap**: Utilizzati per creare un'interfaccia utente moderna e responsive (UI).
 - **JavaScript & TypeScript**: Per gestire l'interattività e migliorare l'esperienza utente (UX).
 - **Angular**: Per la gestione delle componenti frontend più complesse e la logica del client.
 
-#### 🛠 Backend:
+### 🛠 Backend:
 - **ASP.NET MVC**: Framework utilizzato per la logica applicativa e la gestione del routing.
 - **C#**: Linguaggio di programmazione utilizzato per la logica di business e l'interazione con il database.
 - **Entity Framework Core**: Utilizzato per la gestione dell'accesso ai dati e per comunicare con il database.
   
-#### 💾 Database:
+### 💾 Database:
 - **SQL Server**: Utilizzato per l'archiviazione dei dati, compresi i prodotti, gli ordini e le informazioni sugli utenti.
 
 ---
@@ -99,5 +99,14 @@ https://github.com/user-attachments/assets/faab9a31-93f6-4271-8618-4b7e6fbc11f3
 ![Profile](https://github.com/user-attachments/assets/b382d82d-2d80-4fb6-95d4-59f71dc2a2ae)
 
 
+---
+>[!NOTE]
+> The video that I use is only for the rappresentation of my project, the creator of that video is [G Visuals](https://www.youtube.com/@g_visuals_)!
+ 
+ 
+ 
 
  
+
+ 
+
