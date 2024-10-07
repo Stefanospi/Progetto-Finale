@@ -101,7 +101,7 @@ https://github.com/user-attachments/assets/faab9a31-93f6-4271-8618-4b7e6fbc11f3
 
 ---
 >[!NOTE]
-> The video that I use is only for the rappresentation of my project, the creator of that video is [G Visuals](https://www.youtube.com/@g_visuals_)!
+> The video featured on my e-commerce site is for aesthetic and demonstrative purposes only. Full credits for the video go to [G Visuals](https://www.youtube.com/@g_visuals_)!
  
  
  
