@@ -46,3 +46,58 @@ Stripe fornisce una soluzione robusta che garantisce la sicurezza delle transazi
 - **Visual Studio & Visual Studio Code**: IDE principali utilizzati per lo sviluppo del progetto.
 - **Git & GitHub**: Utilizzati per il controllo di versione e la collaborazione.
 - **Azure**: Per il deployment del progetto e la gestione del cloud.
+
+### 📸 Screenshot & Video:
+
+---
+
+**🏚️ Home:**
+
+  ![Home 1](https://github.com/user-attachments/assets/b9de1508-85ce-4dbb-b225-674ac00eb83e)
+  
+  ---
+  
+  ![Home 2](https://github.com/user-attachments/assets/e969bc72-a1e8-48f1-a78e-d536d1c0f4d7)
+  
+  ---
+  
+  ![Home 3](https://github.com/user-attachments/assets/f9c05a5e-9818-486a-8252-ecb324248da3)
+  
+  ---
+  
+
+
+**🧙🏻 Login & Register:**
+
+![Login](https://github.com/user-attachments/assets/e1d7966d-7b5b-4e29-a96d-adf39bf44f2a)
+
+---
+
+![Register](https://github.com/user-attachments/assets/37d34c80-9842-439f-83f1-8fd6a3c43c4f)
+
+---
+
+**🛠️ Admin dashboard:**
+
+
+https://github.com/user-attachments/assets/faab9a31-93f6-4271-8618-4b7e6fbc11f3
+
+---
+
+**🛒 Cart:**
+
+![Carrello](https://github.com/user-attachments/assets/74a6b6c9-22d0-46de-85a1-9f50ef82daeb)
+
+---
+
+![Pagamento riuscito](https://github.com/user-attachments/assets/3ca3805f-8ab9-4775-855f-9ad74f2a7acb)
+
+---
+
+**🧑🏻‍🦱 Profile:**
+
+![Profile](https://github.com/user-attachments/assets/b382d82d-2d80-4fb6-95d4-59f71dc2a2ae)
+
+
+
+ 
