@@ -77,7 +77,7 @@ Stripe fornisce una soluzione robusta che garantisce la sicurezza delle transazi
 
 ---
 
-**🛠️ Admin dashboard:**
+**🛠️ Admin Dashboard:**
 
 
 https://github.com/user-attachments/assets/faab9a31-93f6-4271-8618-4b7e6fbc11f3
@@ -94,7 +94,7 @@ https://github.com/user-attachments/assets/faab9a31-93f6-4271-8618-4b7e6fbc11f3
 
 ---
 
-**🧑🏻‍🦱 Profile:**
+**🧑🏻‍🦱 User Profile:**
 
 ![Profile](https://github.com/user-attachments/assets/b382d82d-2d80-4fb6-95d4-59f71dc2a2ae)
 
