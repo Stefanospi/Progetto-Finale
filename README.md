@@ -21,8 +21,6 @@ Il progetto **GINGER E-Commerce** è un sito dedicato alla vendita di prodotti *
 ### 🎨 Frontend:
 - **HTML5, CSS3, Bootstrap**: Utilizzati per creare un'interfaccia utente moderna e responsive (UI).
 - **JavaScript & TypeScript**: Per gestire l'interattività e migliorare l'esperienza utente (UX).
-- **Angular**: Per la gestione delle componenti frontend più complesse e la logica del client.
-
 ### 🛠 Backend:
 - **ASP.NET MVC**: Framework utilizzato per la logica applicativa e la gestione del routing.
 - **C#**: Linguaggio di programmazione utilizzato per la logica di business e l'interazione con il database.
